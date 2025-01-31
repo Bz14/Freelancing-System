@@ -1,0 +1,104 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
+import logo from "../assets/logo.png";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+
+const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const path = usePathname();
+
+  return (
+    <header className="bg-white shadow-md">
+      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <Link href="/">
+          <Image src={logo} alt="ProConnect" width={50} height={50} />
+        </Link>
+        <nav className="hidden md:flex space-x-6">
+          {["Home", "Browse Jobs", "Freelancers", "About", "Contact"].map(
+            (item, index) => (
+              <div key={index}>
+                <Link
+                  href={`/${item.toLowerCase().replace(" ", "")}`}
+                  className="text-gray-700 hover:text-secondary"
+                >
+                  {item}
+                </Link>
+                {path === `/${item.toLowerCase().replace(" ", "")}` && (
+                  <hr className="h-[3px] bg-primary border-none w-full rounded-full" />
+                )}
+              </div>
+            )
+          )}
+        </nav>
+
+        <div className="hidden md:flex space-x-4">
+          <Link
+            href="/login"
+            className="text-primary border px-4 py-2 rounded-lg hover:bg-blue-50"
+          >
+            Login
+          </Link>
+          <Link
+            href="/signup"
+            className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary"
+          >
+            Sign Up
+          </Link>
+        </div>
+
+        <button
+          className="md:hidden text-gray-700 focus:outline-none"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? (
+            <X size={28} color="#1A1A55" />
+          ) : (
+            <Menu size={28} color="#1A1A55" />
+          )}
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="md:hidden bg-white shadow-md absolute top-16 left-0 w-full px-6 py-4 space-y-4">
+          {["Home", "Browse Jobs", "Freelancers", "About", "Contact"].map(
+            (item, index) => (
+              <div key={index}>
+                <Link
+                  href={`/${item.toLowerCase().replace(" ", "")}`}
+                  className={`block text-gray-700 hover:text-secondary text-center {${
+                    path === `/${item.toLowerCase().replace(" ", "")}` &&
+                    "text-primary"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item}
+                </Link>
+              </div>
+            )
+          )}
+          <div className="border-t pt-4 flex justify-between align-middle">
+            <Link
+              href="/login"
+              className="block text-primary py-2 hover:bg-blue-50 rounded-lg w-20 text-center border px-4"
+              onClick={() => setIsOpen(false)}
+            >
+              Login
+            </Link>
+            <Link
+              href="/signup"
+              className="block bg-primary text-white py-2 rounded-lg hover:bg-secondary w-20 text-center"
+              onClick={() => setIsOpen(false)}
+            >
+              Sign Up
+            </Link>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+};
+
+export default Header;
