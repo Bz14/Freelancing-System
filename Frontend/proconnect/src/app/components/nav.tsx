@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const path = usePathname();
+  const paths = ["/", "/jobs", "/freelancers", "/about", "/contact"];
 
   return (
     <header className="bg-white shadow-md">
@@ -21,12 +22,12 @@ const Header = () => {
             (item, index) => (
               <div key={index}>
                 <Link
-                  href={`/${item.toLowerCase().replace(" ", "")}`}
+                  href={paths[index]}
                   className="text-gray-700 hover:text-secondary"
                 >
                   {item}
                 </Link>
-                {path === `/${item.toLowerCase().replace(" ", "")}` && (
+                {path === paths[index] && (
                   <hr className="h-[3px] bg-primary border-none w-full rounded-full" />
                 )}
               </div>
@@ -67,10 +68,9 @@ const Header = () => {
             (item, index) => (
               <div key={index}>
                 <Link
-                  href={`/${item.toLowerCase().replace(" ", "")}`}
+                  href={paths[index]}
                   className={`block text-gray-700 hover:text-secondary text-center {${
-                    path === `/${item.toLowerCase().replace(" ", "")}` &&
-                    "text-primary"
+                    path === paths[index] && "text-primary"
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
