@@ -20,7 +20,8 @@ const testimonials = [
     id: 2,
     name: "Mark Robertson",
     role: "Client - Startup Founder",
-    review: "Finding skilled freelancers has never been this easy and secure.",
+    review:
+      "Finding skilled freelancers has never been this easy and secure.Highly recommended!",
     rating: 4.8,
     image: img,
   },
@@ -28,7 +29,8 @@ const testimonials = [
     id: 3,
     name: "Sophia Lee",
     role: "Freelancer - Graphic Designer",
-    review: "Love the escrow payment system! It ensures I get paid on time.",
+    review:
+      "Love the escrow payment system! It ensures I get paid on time.Highly recommended!",
     rating: 4.9,
     image: img,
   },
@@ -36,7 +38,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-12 bg-gradient-to-r from-primary to-primary text-white">
+    <section className="py-12 bg-gradient-to-r from-primary to-primary text-white h-fit">
       <div className="max-w-5xl mx-auto px-6 text-center">
         <h2 className="text-4xl font-bold mb-6">What Our Users Say 💬</h2>
 
@@ -69,7 +71,7 @@ export default function Testimonials() {
                 <p className="mt-3 text-primary italic">
                   “{testimonial.review}”
                 </p>
-                <p className="mt-2 text-yellow-500 text-lg">
+                <p className="mt-2 text-yellow-500 text-lg mb-2">
                   ⭐ {testimonial.rating}
                 </p>
               </div>
