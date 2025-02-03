@@ -40,7 +40,9 @@ export default function Testimonials() {
   return (
     <section className="py-12 bg-gradient-to-r from-primary to-primary text-white h-fit">
       <div className="max-w-5xl mx-auto px-6 text-center">
-        <h2 className="text-4xl font-bold mb-6">What Our Users Say 💬</h2>
+        <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+          What Our Users Say 💬
+        </h2>
 
         <Swiper
           modules={[Pagination, Autoplay]}

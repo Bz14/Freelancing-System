@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const CTASection = () => (
   <section className="bg-gradient-to-r from-primary to-primary text-white py-12 text-center">
-    <h2 className="text-4xl font-bold">Get Started Now! 🚀</h2>
+    <h2 className="text-2xl lg:text-4xl font-bold">Get Started Now! 🚀</h2>
     <p className="mt-2 text-lg">
       Find the perfect freelancer or your next gig today.
     </p>

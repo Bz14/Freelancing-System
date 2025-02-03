@@ -4,7 +4,6 @@ import { useForm, FieldErrors } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-  FaUser,
   FaEnvelope,
   FaLock,
   FaEyeSlash,
@@ -76,7 +75,7 @@ const Login = () => {
         </h1>
 
         <form
-          className="mt-6 space-y-4"
+          className="mt-4 space-y-4"
           onSubmit={handleSubmit(onSubmit, onError)}
         >
           <div className="relative">
