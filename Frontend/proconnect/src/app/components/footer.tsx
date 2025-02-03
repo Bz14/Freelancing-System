@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 
 const Footer = () => (
-  <footer className="bg-gray-900 text-gray-300 py-10">
+  <footer className="bg-primary text-gray-300 py-10">
     <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="mr-4">
         <h3 className="text-xl font-semibold text-white">About Us</h3>
@@ -47,8 +47,6 @@ const Footer = () => (
         </div>
       </div>
     </div>
-
-    {/* Copyright */}
     <div className="text-center mt-6 text-sm border-t border-gray-700 pt-4">
       © {new Date().getFullYear()} FreelanceHub. All Rights Reserved.
     </div>
