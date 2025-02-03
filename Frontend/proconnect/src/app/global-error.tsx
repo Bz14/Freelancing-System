@@ -1,10 +1,22 @@
 "use client";
-const GlobalError = () => {
-  return (
-    <div>
-      <h1>404 Page Not Found</h1>
-    </div>
-  );
-};
+import { useEffect } from "react";
 
-export default GlobalError;
+export default function GlobalError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  useEffect(() => {
+    console.error(error);
+  });
+  return (
+    <html>
+      <body>
+        <h2>Something went wrong!</h2>
+        <button onClick={() => reset()}>Try again</button>
+      </body>
+    </html>
+  );
+}

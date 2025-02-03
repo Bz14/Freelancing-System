@@ -40,7 +40,7 @@ const schema = yup.object().shape({
       /(?=.*[@$!%*?&])/,
       "Password must contain at least one special character."
     ),
-  isFreelancer: yup.boolean().oneOf([true], "You must be a freelancer."),
+  isFreelancer: yup.boolean(),
 });
 
 const Signup = () => {
