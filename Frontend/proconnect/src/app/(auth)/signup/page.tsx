@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { useForm, FieldErrors } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -45,7 +45,7 @@ const schema = yup.object().shape({
 
 const Signup = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const { control, register, handleSubmit, formState, reset } = useForm({
+  const form = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       name: "",
@@ -55,9 +55,19 @@ const Signup = () => {
     },
     mode: "all",
   });
-
+  const { register, handleSubmit, formState, reset } = form;
   const { errors, isValid, isDirty, isSubmitting, isSubmitSuccessful } =
     formState;
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+
+  const onError = (errors: FieldErrors) => {
+    console.log(errors);
+  };
 
   const onSubmit = (data: SignupForm) => {
     console.log(data);
@@ -74,7 +84,10 @@ const Signup = () => {
           Join us today and start freelancing!
         </p>
 
-        <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="mt-6 space-y-4"
+          onSubmit={handleSubmit(onSubmit, onError)}
+        >
           <div className="relative">
             <div className="flex items-center border border-gray-300 rounded-lg shadow-sm focus-within:ring-2 focus-within:ring-primary">
               <FaUser className="text-primary mx-2" />
@@ -157,6 +170,7 @@ const Signup = () => {
 
           <button
             type="submit"
+            disabled={(!isDirty && !isValid) || isSubmitting}
             className="w-full py-3 mt-4 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-secondary transition duration-300"
           >
             Sign Up
