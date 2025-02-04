@@ -132,18 +132,26 @@ const Login = () => {
           </button>
         </form>
 
+        <p className="mt-2">
+          <Link
+            href="/forgotPassword"
+            className="text-secondary hover:underline ml-1"
+          >
+            Forgot password?
+          </Link>
+        </p>
+
+        <p className="text-center text-secondary">Or</p>
+        <button className="flex justify-center items-center w-full py-3 mt-4 bg-secondary text-white font-semibold rounded-lg shadow-md hover:bg-primary transition duration-300">
+          <FaGoogle className="mr-2" />
+          Continue with Google
+        </button>
         <p className="text-center text-secondary mt-4">
           Don&apos;t have an account?
           <Link href="/signup" className="text-primary hover:underline ml-1">
             Signup
           </Link>
         </p>
-
-        <p className="text-center text-secondary mt-4">Or</p>
-        <button className="flex justify-center items-center w-full py-3 mt-4 bg-secondary text-white font-semibold rounded-lg shadow-md hover:bg-primary transition duration-300">
-          <FaGoogle className="mr-2" />
-          Continue with Google
-        </button>
       </div>
     </div>
   );

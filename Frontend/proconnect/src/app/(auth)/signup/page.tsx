@@ -177,18 +177,17 @@ const Signup = () => {
           </button>
         </form>
 
+        <p className="text-center text-secondary mt-4">Or</p>
+        <button className="flex justify-center items-center w-full py-3 mt-4 bg-secondary text-white font-semibold rounded-lg shadow-md hover:bg-primary transition duration-300">
+          <FaGoogle className="mr-2" />
+          Continue with Google
+        </button>
         <p className="text-center text-secondary mt-4">
           Already have an account?
           <Link href="/login" className="text-primary hover:underline ml-1">
             Login
           </Link>
         </p>
-
-        <p className="text-center text-secondary mt-4">Or</p>
-        <button className="flex justify-center items-center w-full py-3 mt-4 bg-secondary text-white font-semibold rounded-lg shadow-md hover:bg-primary transition duration-300">
-          <FaGoogle className="mr-2" />
-          Continue with Google
-        </button>
       </div>
     </div>
   );
