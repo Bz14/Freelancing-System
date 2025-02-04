@@ -19,8 +19,8 @@ const generateVerificationToken = async () => {
   }
 };
 
-const generateVerificationLink = (token: string) => {
-  const verificationLink = `${process.env.ServerHost}/api/v1/auth/verify?token=${token}`;
+const generateVerificationLink = (token: string, email: string) => {
+  const verificationLink = `${process.env.ServerHost}/api/v1/auth/verify?token=${token}&email=${email}`;
   return verificationLink;
 };
 

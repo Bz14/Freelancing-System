@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import { IAuthService } from "../interfaces/authInterface";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class AuthController {
   private authService: IAuthService;
@@ -17,6 +20,16 @@ class AuthController {
         isFreelancer
       );
       res.status(201).json({ message: message });
+    } catch (error: Error | any) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  Verify = async (req: Request, res: Response) => {
+    try {
+      const { token, email } = req.query;
+      const message = await this.authService.Verify(email, token);
+      res.status(300).redirect(`${process.env.FRONTEND_URL}/login`);
     } catch (error: Error | any) {
       res.status(400).json({ message: error.message });
     }

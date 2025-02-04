@@ -31,4 +31,6 @@ authRouter.post(
   authController.Signup
 );
 
+authRouter.get("/verify", authController.Verify);
+
 export default authRouter;

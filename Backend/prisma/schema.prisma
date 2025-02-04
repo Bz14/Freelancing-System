@@ -23,4 +23,5 @@ model User {
   isFreelancer Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isVerified Boolean @default(false)
 }

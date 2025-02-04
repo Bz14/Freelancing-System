@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
+import { IUser } from "../interfaces/authInterface";
 
 const prisma = new PrismaClient();
 
 class UserRepository {
-  FindUserByEmail = async (email: string) => {
+  FindUserByEmail = async (email: string): Promise<IUser | null> => {
     return await prisma.user.findUnique({ where: { email } });
   };
 
@@ -13,7 +14,7 @@ class UserRepository {
     password: string,
     isFreelancer: boolean,
     verificationToken: string,
-    verificationTokenExpires: number
+    verificationTokenExpires: Date
   ) => {
     return await prisma.user.create({
       data: {
@@ -28,6 +29,12 @@ class UserRepository {
   };
   DeleteUser = async (email: string) => {
     return await prisma.user.delete({ where: { email } });
+  };
+  VerifyUser = async (email: string) => {
+    return await prisma.user.update({
+      where: { email },
+      data: { isVerified: true },
+    });
   };
 }
 

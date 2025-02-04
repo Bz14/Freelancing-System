@@ -5,6 +5,8 @@ interface IAuthService {
     password: string,
     isFreelancer: boolean
   ) => {};
+
+  Verify: (email: string | any, token: string | any) => {};
 }
 interface IEmailService {
   sendEmail: (email: string, subject: string, message: string) => {};
@@ -18,9 +20,20 @@ interface IAuthRepository {
     password: string,
     isFreelancer: boolean,
     verificationToken: string,
-    verificationTokenExpires: number
+    verificationTokenExpires: Date
   ) => {};
   DeleteUser: (email: string) => {};
+  VerifyUser: (email: string) => {};
 }
 
-export { IAuthService, IAuthRepository, IEmailService };
+interface IUser {
+  name: string;
+  email: string;
+  password: string;
+  isFreelancer: boolean;
+  verificationToken?: string;
+  verificationTokenExpires?: Date;
+  isVerified: boolean;
+}
+
+export { IAuthService, IAuthRepository, IEmailService, IUser };

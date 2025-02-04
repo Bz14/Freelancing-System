@@ -5,6 +5,7 @@ import {
   generateVerificationLink,
 } from "../utils/generateVerificationLink";
 import verificationEmail from "../utils/verification_email";
+import { IUser } from "../interfaces/authInterface";
 class AuthService {
   private authRepository: IAuthRepository;
   private emailService: IEmailService;
@@ -26,7 +27,7 @@ class AuthService {
       }
       const hashedPassword = await hashPassword(password);
       const verificationToken = await generateVerificationToken();
-      const verificationTokenExpires = Date.now() + 3600000;
+      const verificationTokenExpires = new Date(Date.now() + 3600000);
       const user = await this.authRepository.CreateUser(
         name,
         email,
@@ -35,7 +36,10 @@ class AuthService {
         verificationToken,
         verificationTokenExpires
       );
-      const verificationLink = generateVerificationLink(verificationToken);
+      const verificationLink = generateVerificationLink(
+        verificationToken,
+        email
+      );
       const emailVerification = verificationEmail(name, verificationLink);
       await this.emailService.sendEmail(
         email,
@@ -45,6 +49,29 @@ class AuthService {
       return "User created successfully.";
     } catch (error: Error | any) {
       await this.authRepository.DeleteUser(email);
+      throw new Error(error);
+    }
+  };
+  Verify = async (email: string | any, token: string) => {
+    try {
+      const user: IUser | any = await this.authRepository.FindUserByEmail(
+        email
+      );
+      if (!user) {
+        throw new Error("User not found");
+      }
+      if (user.verificationToken !== token) {
+        throw new Error("Invalid token");
+      }
+      if (
+        user.verificationTokenExpires &&
+        user.verificationTokenExpires.getTime() < Date.now()
+      ) {
+        throw new Error("Token expired");
+      }
+      await this.authRepository.VerifyUser(email);
+      return "User verified successfully";
+    } catch (error: Error | any) {
       throw new Error(error);
     }
   };
