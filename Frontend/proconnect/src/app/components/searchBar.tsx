@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-const SearchBar = () => {
+
+interface SearchBarProps {
+  placeholder: string;
+}
+const SearchBar = ({ placeholder }: SearchBarProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   return (
     <div className="flex items-center border border-gray-300 p-2 rounded-lg mt-4 lg:w-1/2 mx-auto">
       <FaSearch className="text-gray-500 mx-2" />
       <input
         type="text"
-        placeholder="Search jobs..."
+        placeholder={placeholder}
         className="w-full outline-none"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

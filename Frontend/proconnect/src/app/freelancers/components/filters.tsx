@@ -5,7 +5,7 @@ import { useState } from "react";
 const FilterSection = () => {
   const [filters, setFilters] = useState({
     jobType: "",
-    experienceLevel: "",
+    type: "",
     budgetMin: "",
     budgetMax: "",
     clientRating: "",
@@ -22,46 +22,30 @@ const FilterSection = () => {
 
   return (
     <div className="mt-6 flex flex-col justify-center p-4 rounded-lg items-center">
-      <h2 className="text-md font-semibold text-primary">Filter Jobs</h2>
+      <h2 className="text-md font-semibold text-primary">Filter freelancers</h2>
       <div className="grid grid-rows-2 lg:flex flex-col lg:flex-row lg-items-center lg-justify-center gap-4 mt-2">
         <div>
-          <label className="text-sm text-secondary">Job Type</label>
-          <select
-            name="jobType"
-            value={filters.jobType}
-            onChange={handleFilterChange}
-            className="w-full p-2 border border-gray-300 rounded-md outline-none text-sm"
-          >
-            <option value="" className="text-sm">
-              Any
-            </option>
-            <option value="Fixed" className="text-sm">
-              Fixed Price
-            </option>
-            <option value="Hourly" className="text-sm">
-              Hourly Rate
-            </option>
-          </select>
-        </div>
-        <div>
-          <label className="text-sm text-secondary">Experience Level</label>
+          <label className="text-sm text-secondary">Developer Type</label>
           <select
             name="experienceLevel"
-            value={filters.experienceLevel}
+            value={filters.type}
             onChange={handleFilterChange}
             className="w-full p-2 border border-gray-300 rounded-md outline-none text-sm"
           >
             <option value="" className="text-sm">
               Any
             </option>
-            <option value="Entry" className="text-sm">
-              Entry
+            <option value="frontend" className="text-sm">
+              Frontend
             </option>
-            <option value="Intermediate" className="text-sm">
-              Intermediate
+            <option value="backend" className="text-sm">
+              Backend
             </option>
-            <option value="Expert" className="text-sm">
-              Expert
+            <option value="full_stack" className="text-sm">
+              Fullstack
+            </option>
+            <option value="machine_learning" className="text-sm">
+              Machine Learning
             </option>
           </select>
         </div>
