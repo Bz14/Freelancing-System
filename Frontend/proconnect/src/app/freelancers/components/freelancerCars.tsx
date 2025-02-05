@@ -1,15 +1,9 @@
-import Image, { StaticImageData } from "next/image";
-
-interface FreelancerProps {
-  id: string;
-  name: string;
-  skills: string[];
-  location: string;
-  rating: number;
-  profilePicture: StaticImageData;
-}
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import FreelancerProps from "@/app/interfaces/user";
 
 const FreeLancerCard: React.FC<FreelancerProps> = (freelancer) => {
+  const router = useRouter();
   return (
     <div
       key={freelancer.id}
@@ -30,7 +24,10 @@ const FreeLancerCard: React.FC<FreelancerProps> = (freelancer) => {
         Location: {freelancer.location}
       </p>
       <p className="text-sm text-yellow-500">Rating: ⭐ {freelancer.rating}</p>
-      <button className="mt-4 bg-primary text-white px-4 py-2 rounded-full hover:bg-secondary">
+      <button
+        className="mt-4 bg-primary text-white px-4 py-2 rounded-full hover:bg-secondary"
+        onClick={() => router.push(`/freelancers/${freelancer.id}`)}
+      >
         View Profile
       </button>
     </div>
