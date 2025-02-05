@@ -6,22 +6,18 @@ const AuthenticationMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): void => {
   const authHeader = req.headers["authorization"];
   const [bearer, token]: any = authHeader
     ? authHeader.split(" ")
     : [null, null];
 
   if (bearer == null || token == null) {
-    return res
-      .status(401)
-      .json({ message: "Bearer token is missing or invalid" });
+    res.status(401).json({ message: "Bearer token is missing or invalid" });
   }
 
   if (bearer.toLowerCase() !== "bearer") {
-    return res
-      .status(401)
-      .json({ message: "Bearer token is missing or invalid" });
+    res.status(401).json({ message: "Bearer token is missing or invalid" });
   }
 
   try {
@@ -34,4 +30,4 @@ const AuthenticationMiddleware = (
   }
 };
 
-module.exports = AuthenticationMiddleware;
+export default AuthenticationMiddleware;

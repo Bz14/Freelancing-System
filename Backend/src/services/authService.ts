@@ -7,7 +7,6 @@ import {
 import verificationEmail from "../utils/verification_email";
 import { IUser } from "../interfaces/authInterface";
 import { generateAccessToken, generateRefreshToken } from "../utils/token";
-import { create } from "domain";
 class AuthService {
   private authRepository: IAuthRepository;
   private emailService: IEmailService;
