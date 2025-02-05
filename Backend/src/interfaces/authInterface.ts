@@ -7,6 +7,7 @@ interface IAuthService {
   ) => {};
 
   Verify: (email: string | any, token: string | any) => {};
+  Login: (email: string, password: string) => {};
 }
 interface IEmailService {
   sendEmail: (email: string, subject: string, message: string) => {};
