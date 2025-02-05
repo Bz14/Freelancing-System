@@ -48,7 +48,7 @@ const JobDetails = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 py-6 lg:w-3/4">
       <h1 className="text-xl lg:text-2xl font-bold mb-4 text-primary">
         {job.title}
       </h1>
