@@ -32,9 +32,15 @@ const FilterSection = () => {
             onChange={handleFilterChange}
             className="w-full p-2 border border-gray-300 rounded-md outline-none"
           >
-            <option value="">Any</option>
-            <option value="Fixed">Fixed Price</option>
-            <option value="Hourly">Hourly Rate</option>
+            <option value="" className="text-sm lg:text-lg">
+              Any
+            </option>
+            <option value="Fixed" className="text-sm lg:text-lg">
+              Fixed Price
+            </option>
+            <option value="Hourly" className="text-sm lg:text-lg">
+              Hourly Rate
+            </option>
           </select>
         </div>
         <div>
@@ -45,10 +51,18 @@ const FilterSection = () => {
             onChange={handleFilterChange}
             className="w-full p-2 border border-gray-300 rounded-md outline-none"
           >
-            <option value="">Any</option>
-            <option value="Entry">Entry</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Expert">Expert</option>
+            <option value="" className="text-sm lg:text-lg">
+              Any
+            </option>
+            <option value="Entry" className="text-sm lg:text-lg">
+              Entry
+            </option>
+            <option value="Intermediate" className="text-sm lg:text-lg">
+              Intermediate
+            </option>
+            <option value="Expert" className="text-sm lg:text-lg">
+              Expert
+            </option>
           </select>
         </div>
 

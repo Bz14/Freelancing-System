@@ -1,5 +1,6 @@
 import React from "react";
 import { FaClock, FaDollarSign, FaBriefcase } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 interface JobProps {
   title: string;
@@ -24,6 +25,7 @@ const JobCard: React.FC<JobProps> = ({
   postedTime,
   deadline,
 }) => {
+  const router = useRouter();
   return (
     <div className="border p-4 shadow-lg rounded-lg bg-white hover:scale-105 transition-transform cursor-pointer">
       <h2 className="text-lg font-semibold text-primary">{title}</h2>
@@ -62,7 +64,10 @@ const JobCard: React.FC<JobProps> = ({
         <p className="text-xs text-red-500 mt-1">Deadline: {deadline}</p>
       )}
 
-      <button className="mt-3 w-full bg-primary text-white py-2 rounded-md hover:bg-secondary">
+      <button
+        className="mt-3 w-full bg-primary text-white py-2 rounded-md hover:bg-secondary"
+        onClick={() => router.push("/jobs/1")}
+      >
         View Details
       </button>
     </div>
