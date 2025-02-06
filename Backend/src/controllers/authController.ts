@@ -52,6 +52,30 @@ class AuthController {
       res.status(400).json({ message: error.message });
     }
   };
+
+  GoogleAuthSuccess = async (req: Request, res: Response) => {
+    try {
+      const { accessToken, refreshToken, userProfile }: any =
+        await this.authService.LoginWithGoogle(req.user);
+      res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+      res.redirect(
+        `${process.env.REDIRECT}?accessToken=${accessToken}&profile=${userProfile}`
+      );
+    } catch (err: Error | any) {
+      res.status(400).json({ message: err.message });
+    }
+  };
+
+  GoogleAuthFailure = (req: Request, res: Response) => {
+    res.redirect(
+      `${process.env.FRONTEND_URL}/login?error=Authentication failed`
+    );
+  };
 }
 
 export default AuthController;

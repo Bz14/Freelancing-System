@@ -17,11 +17,14 @@ model User {
   id       String  @id @default(uuid())
   name     String
   email    String  @unique
-  password String
-  verificationToken String
+  password String  @default("")
+  verificationToken String @default("")
   verificationTokenExpires DateTime @default(now())
   isFreelancer Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isVerified Boolean @default(false)
+  googleId String @default("")
+  profilePicture String  @default("")
+
 }

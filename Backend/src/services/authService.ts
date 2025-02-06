@@ -33,9 +33,14 @@ class AuthService {
         name,
         email,
         hashedPassword,
-        isFreelancer,
         verificationToken,
-        verificationTokenExpires
+        verificationTokenExpires,
+        isFreelancer,
+        new Date(),
+        new Date(),
+        false,
+        "",
+        ""
       );
       const verificationLink = generateVerificationLink(
         verificationToken,
@@ -107,6 +112,27 @@ class AuthService {
     } catch (error: Error | any) {
       throw new Error(error);
     }
+  };
+
+  LoginWithGoogle = async (user: any) => {
+    const existingUser = await this.authRepository.FindUserByEmail(user.email);
+    if (!existingUser) {
+      await this.authRepository.CreateUser(
+        user.displayName,
+        user.email,
+        "",
+        "",
+        new Date(),
+        true,
+        new Date(),
+        new Date(),
+        true,
+        user.id,
+        ""
+      );
+      return this.Login(user.email, "");
+    }
+    return this.Login(user.email, "");
   };
 }
 

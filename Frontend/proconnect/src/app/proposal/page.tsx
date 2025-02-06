@@ -41,7 +41,7 @@ const SubmitProposal = () => {
               required
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid lg:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1">
                 Expected Payment
@@ -70,7 +70,7 @@ const SubmitProposal = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid lg:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1">
                 Attach Resume
