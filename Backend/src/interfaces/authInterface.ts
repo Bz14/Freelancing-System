@@ -8,7 +8,6 @@ interface IAuthService {
 
   Verify: (email: string | any, token: string | any) => {};
   Login: (email: string, password: string) => {};
-  LoginWithGoogle: (user: any) => {};
 }
 interface IEmailService {
   sendEmail: (email: string, subject: string, message: string) => {};
@@ -20,18 +19,12 @@ interface IAuthRepository {
     name: string,
     email: string,
     password: string,
-    verificationToken: string,
-    verificationTokenExpires: Date,
     isFreelancer: boolean,
-    createdAt: Date,
-    updatedAt: Date,
-    isVerified: boolean,
-    googleId: string,
-    profilePicture: string
+    verificationToken: string,
+    verificationTokenExpires: Date
   ) => {};
   DeleteUser: (email: string) => {};
   VerifyUser: (email: string) => {};
-  FindUserByGoogleId: (googleId: string) => {};
 }
 
 interface IUser {

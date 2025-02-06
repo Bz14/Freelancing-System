@@ -121,7 +121,7 @@ const BrowseJobs = () => {
       {loading ? (
         <p className="text-center text-gray-600 mt-6">Loading jobs...</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 p-4 lg:p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 p-6">
           {jobs
             // .filter((job) =>
             //   job.title.toLowerCase().includes(searchQuery.toLowerCase())

@@ -12,28 +12,18 @@ class UserRepository {
     name: string,
     email: string,
     password: string,
-    verificationToken: string,
-    verificationTokenExpires: Date,
     isFreelancer: boolean,
-    createdAt: Date,
-    updatedAt: Date,
-    isVerified: boolean,
-    googleId: string,
-    profilePicture: string
+    verificationToken: string,
+    verificationTokenExpires: Date
   ) => {
     return await prisma.user.create({
       data: {
         name,
         email,
         password,
+        isFreelancer,
         verificationToken,
         verificationTokenExpires: new Date(verificationTokenExpires),
-        isFreelancer,
-        createdAt: new Date(createdAt),
-        updatedAt: new Date(updatedAt),
-        isVerified,
-        googleId,
-        profilePicture,
       },
     });
   };
@@ -45,10 +35,6 @@ class UserRepository {
       where: { email },
       data: { isVerified: true },
     });
-  };
-
-  FindUserByGoogleId = async (googleId: string) => {
-    return await prisma.user.findFirst({ where: { googleId } });
   };
 }
 

@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { body } from "express-validator";
-import passport from "passport";
 import AuthController from "../controllers/authController";
 import AuthService from "../services/authService";
 import UserRepository from "../repository/userRepository";
@@ -51,21 +50,5 @@ authRouter.post(
   ],
   authController.Login
 );
-
-authRouter.get(
-  "/google",
-  passport.authenticate("google", { scope: ["profile", "email", "name"] })
-);
-
-authRouter.get(
-  "/google/callback",
-  passport.authenticate("google", {
-    session: false,
-    failureRedirect: "/api/v1/auth/failure",
-  }),
-  authController.GoogleAuthSuccess
-);
-
-authRouter.get("/failure", authController.GoogleAuthFailure);
 
 export default authRouter;
