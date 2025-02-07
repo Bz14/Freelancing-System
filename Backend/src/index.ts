@@ -16,7 +16,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1", refreshRoute);
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Hello World.");
 });
 
 app.listen(port, () => {
