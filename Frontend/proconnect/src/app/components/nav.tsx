@@ -48,6 +48,12 @@ const Header = () => {
           >
             Sign Up
           </Link>
+          <Link
+            href="/profile/client"
+            className="bg-primary text-white px-4 py-2 rounded-full hover:bg-secondary"
+          >
+            P
+          </Link>
         </div>
 
         <button
