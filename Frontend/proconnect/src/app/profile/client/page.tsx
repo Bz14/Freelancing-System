@@ -4,7 +4,6 @@ import { useState } from "react";
 import Sidebar from "./components/sidebar";
 import DashboardHeader from "./components/dashboardHeader";
 
-// Different component sections
 const DashboardContent = () => <div>📊 Dashboard Overview</div>;
 const JobsContent = () => <div>📝 My Jobs</div>;
 const PaymentsContent = () => <div>💰 Payments</div>;
