@@ -15,7 +15,7 @@ const ActiveJobs = () => {
   ];
 
   return (
-    <div className="mt-5 p-4 bg-white shadow rounded">
+    <div className="mt-7 p-4 bg-primary text-white shadow rounded">
       <h2 className="text-lg font-bold">Active Jobs</h2>
       <ul className="mt-3 space-y-3">
         {jobs.map((job, index) => (

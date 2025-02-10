@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Sidebar from "./components/sidebar";
 import DashboardHeader from "./components/dashboardHeader";
+import Dashboard from "./components/dashboard";
 
-const DashboardContent = () => <div>📊 Dashboard Overview</div>;
 const JobsContent = () => <div>📝 My Jobs</div>;
 const PaymentsContent = () => <div>💰 Payments</div>;
 const ProfileContent = () => <div>👤 Profile Settings</div>;
@@ -17,7 +17,7 @@ const ClientDashboard = () => {
       <Sidebar onSelect={setSelectedMenu} />
       <div className="flex-1 p-5">
         <DashboardHeader />
-        {selectedMenu === "dashboard" && <DashboardContent />}
+        {selectedMenu === "dashboard" && <Dashboard />}
         {selectedMenu === "jobs" && <JobsContent />}
         {selectedMenu === "payments" && <PaymentsContent />}
         {selectedMenu === "profile" && <ProfileContent />}

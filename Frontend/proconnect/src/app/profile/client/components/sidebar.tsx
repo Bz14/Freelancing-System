@@ -14,6 +14,7 @@ import logo from "@public/assets/logo.png";
 
 const Sidebar = ({ onSelect }: { onSelect: (menu: string) => void }) => {
   const [activeMenu, setActiveMenu] = useState("dashboard");
+  const [overLayOpen, setOverLayOpen] = useState(false);
 
   const handleMenuClick = (menu: string) => {
     setActiveMenu(menu);
@@ -21,72 +22,68 @@ const Sidebar = ({ onSelect }: { onSelect: (menu: string) => void }) => {
   };
 
   return (
-    <div className="w-64 h-screen bg-primary text-white p-5">
+    <div
+      className={`${
+        overLayOpen ? "w-64" : "w-28"
+      }  min-h-screen bg-primary text-white p-5`}
+    >
       <Image
         src={logo}
         alt="ProConnect"
         width={100}
         height={100}
-        className="mx-auto"
+        className="mx-auto cursor-pointer"
+        onClick={() => setOverLayOpen(!overLayOpen)}
       />
-
       <ul className="space-y-4">
-        <li
-          className={`flex items-center space-x-3 cursor-pointer hover:text-gray-300 ${
-            activeMenu === "dashboard" ? "bg-secondary p-2 text-white" : ""
-          }`}
-          onClick={() => handleMenuClick("dashboard")}
-        >
-          <FaHome /> <span>Dashboard</span>
-        </li>
-        <li
-          className={`flex items-center space-x-3 cursor-pointer hover:text-gray-300 ${
-            activeMenu === "profile" ? "bg-secondary p-2 text-white" : ""
-          }`}
-          onClick={() => handleMenuClick("profile")}
-        >
-          <FaUser /> <span>Profile</span>
-        </li>
-        <li
-          className={`flex items-center space-x-3 cursor-pointer hover:text-gray-300 ${
-            activeMenu === "jobs" ? "bg-secondary p-2 text-white" : ""
-          }`}
-          onClick={() => handleMenuClick("jobs")}
-        >
-          <FaClipboardList /> <span>My Jobs</span>
-        </li>
-        <li
-          className={`flex items-center space-x-3 cursor-pointer hover:text-gray-300 ${
-            activeMenu === "payments" ? "bg-secondary p-2 text-white" : ""
-          }`}
-          onClick={() => handleMenuClick("payments")}
-        >
-          <FaMoneyBill /> <span>Payments</span>
-        </li>
-        <li
-          className={`flex items-center space-x-3 cursor-pointer hover:text-gray-300 ${
-            activeMenu === "proposals" ? "bg-secondary p-2 text-white" : ""
-          }`}
-          onClick={() => handleMenuClick("proposals")}
-        >
-          <FaFileAlt /> <span>Proposals</span>
-        </li>
-        <li
-          className={`flex items-center space-x-3 cursor-pointer hover:text-gray-300 ${
-            activeMenu === "upload Jobs" ? "bg-secondary p-2 text-white" : ""
-          }`}
-          onClick={() => handleMenuClick("upload")}
-        >
-          <FaUpload /> <span>Upload Job</span>
-        </li>
-        <li
-          className={`flex items-center space-x-3 cursor-pointer hover:text-gray-300 ${
-            activeMenu === "upload Jobs" ? "bg-secondary p-2 text-white" : ""
-          }`}
-          onClick={() => handleMenuClick("reviews")}
-        >
-          <FaStar /> <span>Reviews</span>
-        </li>
+        {[
+          {
+            label: "Dashboard",
+            icon: <FaHome size={`${!overLayOpen ? "25" : "20"}`} />,
+            key: "dashboard",
+          },
+          {
+            label: "Profile",
+            icon: <FaUser size={`${!overLayOpen ? "25" : "20"}`} />,
+            key: "profile",
+          },
+          {
+            label: "My Jobs",
+            icon: <FaClipboardList size={`${!overLayOpen ? "25" : "20"}`} />,
+            key: "jobs",
+          },
+          {
+            label: "Payments",
+            icon: <FaMoneyBill size={`${!overLayOpen ? "25" : "20"}`} />,
+            key: "payments",
+          },
+          {
+            label: "Proposals",
+            icon: <FaFileAlt size={`${!overLayOpen ? "25" : "20"}`} />,
+            key: "proposals",
+          },
+          {
+            label: "Upload Job",
+            icon: <FaUpload size={`${!overLayOpen ? "25" : "20"}`} />,
+            key: "upload",
+          },
+          {
+            label: "Reviews",
+            icon: <FaStar size={`${!overLayOpen ? "25" : "20"}`} />,
+            key: "reviews",
+          },
+        ].map((item) => (
+          <li
+            key={item.key}
+            className={`flex items-center space-x-3 cursor-pointer hover:text-gray-300 p-2 rounded ${
+              activeMenu === item.key ? "bg-secondary text-white" : ""
+            }`}
+            onClick={() => handleMenuClick(item.key)}
+          >
+            {item.icon}
+            {overLayOpen && <span>{item.label}</span>}
+          </li>
+        ))}
       </ul>
     </div>
   );
