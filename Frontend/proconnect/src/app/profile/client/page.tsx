@@ -4,10 +4,10 @@ import { useState } from "react";
 import Sidebar from "./components/sidebar";
 import DashboardHeader from "./components/dashboardHeader";
 import Dashboard from "./components/dashboard";
+import ClientProfile from "./components/profile";
 
 const JobsContent = () => <div>📝 My Jobs</div>;
 const PaymentsContent = () => <div>💰 Payments</div>;
-const ProfileContent = () => <div>👤 Profile Settings</div>;
 
 const ClientDashboard = () => {
   const [selectedMenu, setSelectedMenu] = useState("dashboard");
@@ -20,7 +20,7 @@ const ClientDashboard = () => {
         {selectedMenu === "dashboard" && <Dashboard />}
         {selectedMenu === "jobs" && <JobsContent />}
         {selectedMenu === "payments" && <PaymentsContent />}
-        {selectedMenu === "profile" && <ProfileContent />}
+        {selectedMenu === "profile" && <ClientProfile />}
       </div>
     </div>
   );
