@@ -6,8 +6,7 @@ import DashboardHeader from "./components/dashboardHeader";
 import Dashboard from "./components/dashboard";
 import ClientProfile from "./components/profile";
 import MyJobs from "./components/myJobs";
-
-const PaymentsContent = () => <div>💰 Payments</div>;
+import Payments from "./components/payment";
 
 const ClientDashboard = () => {
   const [selectedMenu, setSelectedMenu] = useState("dashboard");
@@ -19,7 +18,7 @@ const ClientDashboard = () => {
         <DashboardHeader />
         {selectedMenu === "dashboard" && <Dashboard />}
         {selectedMenu === "jobs" && <MyJobs />}
-        {selectedMenu === "payments" && <PaymentsContent />}
+        {selectedMenu === "payments" && <Payments />}
         {selectedMenu === "profile" && <ClientProfile />}
       </div>
     </div>
