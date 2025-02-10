@@ -5,8 +5,8 @@ import Sidebar from "./components/sidebar";
 import DashboardHeader from "./components/dashboardHeader";
 import Dashboard from "./components/dashboard";
 import ClientProfile from "./components/profile";
+import MyJobs from "./components/myJobs";
 
-const JobsContent = () => <div>📝 My Jobs</div>;
 const PaymentsContent = () => <div>💰 Payments</div>;
 
 const ClientDashboard = () => {
@@ -18,7 +18,7 @@ const ClientDashboard = () => {
       <div className="flex-1 p-5">
         <DashboardHeader />
         {selectedMenu === "dashboard" && <Dashboard />}
-        {selectedMenu === "jobs" && <JobsContent />}
+        {selectedMenu === "jobs" && <MyJobs />}
         {selectedMenu === "payments" && <PaymentsContent />}
         {selectedMenu === "profile" && <ClientProfile />}
       </div>
