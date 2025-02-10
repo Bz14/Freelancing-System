@@ -12,6 +12,14 @@ class JobService {
       throw new Error(err.message);
     }
   };
+
+  GetJobById = async (id: string) => {
+    try {
+      return await this.jobRepository.GetJobById(id);
+    } catch (err: Error | any) {
+      throw new Error(err.message);
+    }
+  };
 }
 
 export default JobService;

@@ -10,5 +10,6 @@ const jobController = new JobController(jobService);
 const jobRouter = Router();
 
 jobRouter.get("/jobs", jobController.GetAllJobs);
+jobRouter.get("/jobs/:id", jobController.GetJobById);
 
 export default jobRouter;

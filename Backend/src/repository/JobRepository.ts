@@ -7,6 +7,10 @@ class JobRepository {
   GetAllJobs = async () => {
     return await prisma.job.findMany();
   };
+
+  GetJobById = async (id: string) => {
+    return await prisma.job.findUnique({ where: { id: id } });
+  };
 }
 
 export default JobRepository;
