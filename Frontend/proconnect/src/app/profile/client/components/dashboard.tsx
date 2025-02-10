@@ -1,6 +1,6 @@
-import ActiveJobs from "./activeJobs";
-import OverviewStats from "./overview";
-import FreelancerProposals from "./proposals";
+import ActiveJobs from "./dashboardComponents/activeJobs";
+import OverviewStats from "./dashboardComponents/overview";
+import FreelancerProposals from "./dashboardComponents/proposals";
 
 const Dashboard = () => {
   return (
