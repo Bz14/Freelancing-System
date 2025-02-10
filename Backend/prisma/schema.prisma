@@ -24,4 +24,53 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isVerified Boolean @default(false)
+  client      Client?     @relation("UserClient")  
+  freelancer  Freelancer? @relation("UserFreelancer") 
+}
+
+
+enum Role {
+  CLIENT
+  FREELANCER
+}
+
+model Client {
+  id        String   @id @default(uuid()) 
+  user      User     @relation("UserClient", fields: [id], references: [id]) 
+  company   String? 
+  jobs      Job[] 
+}
+
+
+model Freelancer {
+  id         String    @id @default(uuid()) 
+  user       User      @relation("UserFreelancer", fields: [id], references: [id])  
+  skills     String[]
+  experience String?
+  rating     Float?
+ // appliedJobs Job[]   @relation("AppliedJobs", references: [id])
+ 
+}
+
+model Job {
+  id              String       @id @default(uuid()) 
+  title           String
+  description     String
+  details         String?
+  clientId        String
+  client          Client       @relation(fields: [clientId], references: [id]) 
+  paymentType     String 
+  paymentAmount   Float
+  skillsRequired  String[]
+  postedTime      DateTime     @default(now())
+  deadline        DateTime
+  experienceLevel String 
+  proposalsSent   Int          @default(0) 
+  rating          Float?
+  location        String?
+  projectLength   String
+  clientHistory   String? 
+ // appliedFreelancers Freelancer[] @relation("AppliedJobs", references: [id])
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 }

@@ -25,6 +25,8 @@ interface IAuthRepository {
   ) => {};
   DeleteUser: (email: string) => {};
   VerifyUser: (email: string) => {};
+  SaveFreelancer: (user: IUser | any) => {};
+  SaveClient: (user: IUser | any) => {};
 }
 
 interface IUser {

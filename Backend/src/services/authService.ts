@@ -47,6 +47,11 @@ class AuthService {
         "Email Verification",
         emailVerification
       );
+      // if (isFreelancer) {
+      //   this.authRepository.SaveFreelancer(user);
+      // } else {
+      //   this.authRepository.SaveClient(user);
+      // }
       return "User created successfully.";
     } catch (error: Error | any) {
       await this.authRepository.DeleteUser(email);

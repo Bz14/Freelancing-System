@@ -36,6 +36,22 @@ class UserRepository {
       data: { isVerified: true },
     });
   };
+
+  SaveFreelancer = async (user: any) => {
+    return await prisma.freelancer.create({
+      data: {
+        skills: [],
+      },
+    });
+  };
+
+  SaveClient = async (user: any) => {
+    return await prisma.client.create({
+      data: {
+        // jobs: [],
+      },
+    });
+  };
 }
 
 export default UserRepository;
