@@ -11,6 +11,18 @@ class JobRepository {
   GetJobById = async (id: string) => {
     return await prisma.job.findUnique({ where: { id: id } });
   };
+
+  SearchJobs = async (query: any) => {
+    return await prisma.job.findMany({
+      where: {
+        OR: [
+          { title: { contains: query } },
+          { location: { contains: query } },
+          { description: { contains: query } },
+        ],
+      },
+    });
+  };
 }
 
 export default JobRepository;

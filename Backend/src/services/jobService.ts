@@ -20,6 +20,14 @@ class JobService {
       throw new Error(err.message);
     }
   };
+
+  SearchJobs = async (query: any) => {
+    try {
+      return await this.jobRepository.SearchJobs(query);
+    } catch (err: Error | any) {
+      throw new Error(err.message);
+    }
+  };
 }
 
 export default JobService;
