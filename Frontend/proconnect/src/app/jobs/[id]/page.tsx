@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 const JobDetails = () => {
+  const { id } = useParams();
   const router = useRouter();
   const job = {
     id: "1",
