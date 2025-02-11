@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Sidebar from "./components/sidebar";
 import DashboardHeader from "./components/dashboardHeader";
-import Dashboard from "./clientDashboard/clientDashboard";
-import ClientProfile from "./profile/profile";
-import MyJobs from "./jobs/jobs";
-import Payments from "./payments/payments";
-import Proposals from "./proposals/proposals";
+import Dashboard from "./components/clientDashboard";
+import ClientProfile from "./components/profile";
+import MyJobs from "./components/jobs";
+import Payments from "./components/payments";
+import Proposals from "./components/proposals";
 
 const ClientDashboard = () => {
   const [selectedMenu, setSelectedMenu] = useState("dashboard");
