@@ -8,6 +8,8 @@ import ClientProfile from "./components/profile";
 import MyJobs from "./components/jobs";
 import Payments from "./components/payments";
 import Proposals from "./components/proposals";
+import UploadJob from "./components/uploadJob";
+import Reviews from "./components/reviews";
 
 const ClientDashboard = () => {
   const [selectedMenu, setSelectedMenu] = useState("dashboard");
@@ -22,6 +24,8 @@ const ClientDashboard = () => {
         {selectedMenu === "payments" && <Payments />}
         {selectedMenu === "profile" && <ClientProfile />}
         {selectedMenu == "proposals" && <Proposals />}
+        {selectedMenu == "upload" && <UploadJob />}
+        {selectedMenu == "reviews" && <Reviews />}
       </div>
     </div>
   );
