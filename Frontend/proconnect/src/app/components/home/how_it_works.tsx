@@ -20,7 +20,7 @@ const HowItWorksSection = () => {
         </motion.h2>
         <div className="flex flex-col lg:flex-row justify-between items-center gap-8">
           <motion.div
-            className="flex flex-col items-center text-center"
+            className="flex flex-col items-center text-center rounded-lg bg-gray-50 shadow-lg p-2 hover:shadow-2xl transition duration-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -38,7 +38,7 @@ const HowItWorksSection = () => {
           </motion.div>
 
           <motion.div
-            className="flex flex-col items-center text-center"
+            className="flex flex-col items-center text-center bg-gray-50 shadow-lg p-2 hover:shadow-2xl transition duration-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -55,7 +55,7 @@ const HowItWorksSection = () => {
             </p>
           </motion.div>
           <motion.div
-            className="flex flex-col items-center text-center"
+            className="flex flex-col items-center text-center bg-gray-50 shadow-lg p-2 hover:shadow-2xl transition duration-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
