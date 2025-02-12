@@ -1,3 +1,4 @@
+import { IJob } from "./jobInterfaces";
 interface IAuthService {
   SignUp: (
     name: string,
@@ -25,8 +26,15 @@ interface IAuthRepository {
   ) => {};
   DeleteUser: (email: string) => {};
   VerifyUser: (email: string) => {};
-  SaveFreelancer: (user: IUser | any) => {};
-  SaveClient: (user: IUser | any) => {};
+
+  SaveFreelancer: (
+    userId: string,
+    skills: string[],
+    experience: string,
+    rating: number
+  ) => {};
+
+  SaveClient: (userId: string, company: string, jobs: IJob) => {};
 }
 
 interface IUser {

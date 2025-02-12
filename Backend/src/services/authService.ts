@@ -29,7 +29,7 @@ class AuthService {
       const hashedPassword = await hashPassword(password);
       const verificationToken = await generateVerificationToken();
       const verificationTokenExpires = new Date(Date.now() + 3600000);
-      const user = await this.authRepository.CreateUser(
+      const user: IUser | any = await this.authRepository.CreateUser(
         name,
         email,
         hashedPassword,
@@ -47,11 +47,11 @@ class AuthService {
         "Email Verification",
         emailVerification
       );
-      // if (isFreelancer) {
-      //   this.authRepository.SaveFreelancer(user);
-      // } else {
-      //   this.authRepository.SaveClient(user);
-      // }
+      if (isFreelancer) {
+        this.authRepository.SaveFreelancer(user.id, [], "", 0);
+      } else {
+        this.authRepository.SaveClient(user.id, "", []);
+      }
       return "User created successfully.";
     } catch (error: Error | any) {
       await this.authRepository.DeleteUser(email);

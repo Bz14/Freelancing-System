@@ -14,20 +14,21 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  name     String
-  email    String  @unique
-  password String
-  verificationToken String
-  verificationTokenExpires DateTime @default(now())
-  isFreelancer Boolean @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  isVerified Boolean @default(false)
-  client      Client?     @relation("UserClient")  
-  freelancer  Freelancer? @relation("UserFreelancer") 
+  id                       String       @id @default(uuid())
+  name                     String
+  email                    String       @unique
+  password                 String
+  verificationToken        String
+  verificationTokenExpires DateTime     @default(now())
+  isFreelancer             Boolean      @default(false)
+  createdAt                DateTime     @default(now())
+  updatedAt                DateTime     @updatedAt
+  isVerified               Boolean      @default(false)
+  //freelancer Freelancer? @relation(fields: [id], references: [userId])
+  //client     Client?     @relation(fields: [id], references: [userId])
+  Client                   Client[]
+  Freelancer               Freelancer[]
 }
-
 
 enum Role {
   CLIENT
@@ -35,42 +36,40 @@ enum Role {
 }
 
 model Client {
-  id        String   @id @default(uuid()) 
-  user      User     @relation("UserClient", fields: [id], references: [id]) 
-  company   String? 
-  jobs      Job[] 
+  userId  String  @id @default(uuid())
+  user    User    @relation(fields: [userId], references: [id])
+  company String?
+  jobs    Job[]
 }
 
-
 model Freelancer {
-  id         String    @id @default(uuid()) 
-  user       User      @relation("UserFreelancer", fields: [id], references: [id])  
+  userId     String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
   skills     String[]
   experience String?
   rating     Float?
- // appliedJobs Job[]   @relation("AppliedJobs", references: [id])
- 
+  // appliedJobs Job[]   @relation("AppliedJobs", references: [id])
 }
 
 model Job {
-  id              String       @id @default(uuid()) 
+  id              String   @id @default(uuid())
   title           String
   description     String
   details         String?
   clientId        String
-  client          Client       @relation(fields: [clientId], references: [id]) 
-  paymentType     String 
+  client          Client   @relation(fields: [clientId], references: [userId])
+  paymentType     String
   paymentAmount   Float
   skillsRequired  String[]
-  postedTime      DateTime     @default(now())
+  postedTime      DateTime @default(now())
   deadline        DateTime
-  experienceLevel String 
-  proposalsSent   Int          @default(0) 
+  experienceLevel String
+  proposalsSent   Int      @default(0)
   rating          Float?
   location        String?
   projectLength   String
-  clientHistory   String? 
- // appliedFreelancers Freelancer[] @relation("AppliedJobs", references: [id])
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+  clientHistory   String?
+  // appliedFreelancers Freelancer[] @relation("AppliedJobs", references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }

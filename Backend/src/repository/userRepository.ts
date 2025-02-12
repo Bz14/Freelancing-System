@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { IUser } from "../interfaces/authInterface";
+import { IJob } from "../interfaces/jobInterfaces";
 
 const prisma = new PrismaClient();
 
@@ -37,18 +38,28 @@ class UserRepository {
     });
   };
 
-  SaveFreelancer = async (user: any) => {
+  SaveFreelancer = async (
+    userId: string,
+    skills: string[],
+    experience: string,
+    rating: number
+  ) => {
     return await prisma.freelancer.create({
       data: {
-        skills: [],
+        user: { connect: { id: userId } },
+        skills,
+        experience,
+        rating,
       },
     });
   };
 
-  SaveClient = async (user: any) => {
+  SaveClient = async (userId: string, company: string, jobs: IJob) => {
     return await prisma.client.create({
       data: {
-        // jobs: [],
+        user: { connect: { id: userId } },
+        company,
+        jobs,
       },
     });
   };
