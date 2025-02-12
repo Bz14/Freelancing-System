@@ -54,12 +54,11 @@ class UserRepository {
     });
   };
 
-  SaveClient = async (userId: string, company: string, jobs: IJob) => {
+  SaveClient = async (userId: string, company: string) => {
     return await prisma.client.create({
       data: {
         user: { connect: { id: userId } },
         company,
-        jobs,
       },
     });
   };

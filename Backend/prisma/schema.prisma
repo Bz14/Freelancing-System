@@ -39,7 +39,7 @@ model Client {
   userId  String  @id @default(uuid())
   user    User    @relation(fields: [userId], references: [id])
   company String?
-  jobs    Job[]
+  //jobs    Job[]?
 }
 
 model Freelancer {
@@ -56,8 +56,8 @@ model Job {
   title           String
   description     String
   details         String?
-  clientId        String
-  client          Client   @relation(fields: [clientId], references: [userId])
+  //clientId        String
+  //client          Client   @relation(fields: [clientId], references: [userId])
   paymentType     String
   paymentAmount   Float
   skillsRequired  String[]

@@ -12,6 +12,10 @@ import {
   FaGoogle,
 } from "react-icons/fa";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/redux/store/store";
+import { resetInitialState, signup } from "@/app/redux/slices/userSlice";
+import { useRouter } from "next/navigation";
 
 interface SignupForm {
   name: string;
@@ -44,6 +48,12 @@ const schema = yup.object().shape({
 });
 
 const Signup = () => {
+  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { loading, error, success } = useSelector(
+    (state: RootState) => state.user
+  );
   const [passwordVisible, setPasswordVisible] = useState(false);
   const form = useForm({
     resolver: yupResolver(schema),
@@ -66,12 +76,20 @@ const Signup = () => {
   }, [isSubmitSuccessful, reset]);
 
   const onError = (errors: FieldErrors) => {
+    reset();
     console.log(errors);
   };
 
+  useEffect(() => {
+    // try redirecting with the use email to verify page
+    if (success) {
+      dispatch(resetInitialState());
+      router.push("/verify?email=" + form.getValues("email"));
+    }
+  }, [success]);
+
   const onSubmit = (data: SignupForm) => {
-    console.log(data);
-    reset();
+    dispatch(signup(data));
   };
 
   return (
@@ -167,13 +185,14 @@ const Signup = () => {
           <p style={{ color: "red", fontSize: "12px" }}>
             {errors.isFreelancer?.message}
           </p>
+          {error && <p style={{ color: "red", fontSize: "12px" }}>{error}</p>}
 
           <button
             type="submit"
             disabled={(!isDirty && !isValid) || isSubmitting}
             className="w-full py-3 mt-4 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-secondary transition duration-300"
           >
-            Sign Up
+            {loading ? "Loading..." : " Sign Up"}
           </button>
         </form>
 
@@ -192,5 +211,4 @@ const Signup = () => {
     </div>
   );
 };
-
 export default Signup;

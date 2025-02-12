@@ -34,7 +34,7 @@ interface IAuthRepository {
     rating: number
   ) => {};
 
-  SaveClient: (userId: string, company: string, jobs: IJob) => {};
+  SaveClient: (userId: string, company: string) => {};
 }
 
 interface IUser {

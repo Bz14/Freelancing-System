@@ -50,11 +50,11 @@ class AuthService {
       if (isFreelancer) {
         this.authRepository.SaveFreelancer(user.id, [], "", 0);
       } else {
-        this.authRepository.SaveClient(user.id, "", []);
+        this.authRepository.SaveClient(user.id, "");
       }
       return "User created successfully.";
     } catch (error: Error | any) {
-      await this.authRepository.DeleteUser(email);
+      // await this.authRepository.DeleteUser(email);
       throw new Error(error);
     }
   };
