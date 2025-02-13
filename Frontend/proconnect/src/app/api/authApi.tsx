@@ -18,5 +18,20 @@ const signup = async (email: string, password: string, name: string) => {
   }
 };
 
-const authApi = { signup };
+const login = async (email: string, password: string) => {
+  try {
+    const response = await axios.post(`${API_URL}/auth/login`, {
+      email,
+      password,
+    });
+    if (!response.data) {
+      throw new Error("Signup failed");
+    }
+    return response.data;
+  } catch (error: Error | any) {
+    throw new Error(error.response.data.message);
+  }
+};
+
+const authApi = { signup, login };
 export default authApi;

@@ -113,6 +113,7 @@ class AuthService {
           email: user.email,
           isFreelancer: user.isFreelancer,
           createdAt: user.createdAt,
+          profilePic: user.profilePic,
         },
       };
     } catch (error: Error | any) {

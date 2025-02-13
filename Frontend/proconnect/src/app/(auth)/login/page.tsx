@@ -11,6 +11,10 @@ import {
   FaGoogle,
 } from "react-icons/fa";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/app/redux/store/store";
+import { login, resetInitialState } from "@/app/redux/slices/userSlice";
+import { useRouter } from "next/navigation";
 
 interface LoginForm {
   email: string;
@@ -39,6 +43,11 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
+  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+  const { success, loading, error } = useSelector(
+    (state: RootState) => state.user
+  );
   const [passwordVisible, setPasswordVisible] = useState(false);
   const form = useForm({
     resolver: yupResolver(schema),
@@ -58,13 +67,20 @@ const Login = () => {
     }
   }, [isSubmitSuccessful, reset]);
 
+  useEffect(() => {
+    if (success) {
+      reset();
+      resetInitialState();
+      router.push("/");
+    }
+  }, [success]);
+
   const onError = (errors: FieldErrors) => {
     console.log(errors);
   };
 
   const onSubmit = (data: LoginForm) => {
-    console.log(data);
-    reset();
+    dispatch(login(data));
   };
 
   return (
@@ -123,12 +139,13 @@ const Login = () => {
               {errors.password?.message}
             </p>
           </div>
+          {error && <p style={{ color: "red", fontSize: "12px" }}>{error}</p>}
           <button
             type="submit"
             disabled={(!isDirty && !isValid) || isSubmitting}
             className="w-full py-3 mt-4 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-secondary transition duration-300"
           >
-            Login
+            {loading ? "Loading..." : "Login"}
           </button>
         </form>
 

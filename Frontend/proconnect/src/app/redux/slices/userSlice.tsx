@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authApi from "@/app/api/authApi";
-import { useEffect } from "react";
 
 const initialState = {
   user: {
@@ -9,10 +8,12 @@ const initialState = {
     name: null,
     profilePic: null,
     isFreelancer: false,
+    createdAt: null,
   },
   loading: false,
   error: null as null | string,
   success: false,
+  accessToken: null,
 };
 
 export const signup = createAsyncThunk(
@@ -24,6 +25,18 @@ export const signup = createAsyncThunk(
         data.password,
         data.name
       );
+      return response;
+    } catch (error: Error | any) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const login = createAsyncThunk(
+  "user/login",
+  async (data: { email: string; password: string }, thunkAPI) => {
+    try {
+      const response = await authApi.login(data.email, data.password);
       console.log(response.data);
       return response;
     } catch (error: Error | any) {
@@ -60,6 +73,18 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = (action.payload as string) ?? "An error occurred";
         state.success = false;
+      })
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.user = action.payload.data.user;
+        state.accessToken = action.payload.data.accessToken;
+        state.success = true;
       });
   },
 });
