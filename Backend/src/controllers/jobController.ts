@@ -45,6 +45,17 @@ class JobController {
       res.status(500).json({ message: err.message });
     }
   };
+
+  CreateJob = async (req: Request, res: Response) => {
+    try {
+      const job = req.body;
+      const id = req.id;
+      const newJob = await this.jobService.CreateJob(job, id);
+      res.status(201).json({ message: "Job created", data: newJob });
+    } catch (error: Error | any) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 }
 
 export default JobController;

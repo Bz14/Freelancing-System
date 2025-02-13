@@ -89,7 +89,7 @@ const FilterSection = () => {
           </div>
         </div>
         <div>
-          <label className="text-sm text-secondary">Client Rating</label>
+          <label className="text-sm text-secondary">Rating</label>
           <input
             type="number"
             name="clientRating"

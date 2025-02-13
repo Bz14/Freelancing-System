@@ -28,6 +28,14 @@ class JobService {
       throw new Error(err.message);
     }
   };
+
+  CreateJob = async (job: IJob | any, id: string | any) => {
+    try {
+      return await this.jobRepository.CreateJob(job, id);
+    } catch (err: Error | any) {
+      throw new Error(err.message);
+    }
+  };
 }
 
 export default JobService;
