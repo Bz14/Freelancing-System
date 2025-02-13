@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import JobCard from "./components/jobCards";
 import SearchBar from "../components/searchBar";
 import FilterSection from "./components/filters";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store/store";
+import { useRouter } from "next/navigation";
 
 const dummyResponse = {
   data: [
@@ -95,9 +98,18 @@ const dummyResponse = {
 };
 
 const BrowseJobs = () => {
+  const { accessToken } = useSelector((state: RootState) => state.user);
+  const router = useRouter();
+
   const [jobs, setJobs] = useState(dummyResponse.data);
   const [pagination, setPagination] = useState(dummyResponse.pagination);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!accessToken) {
+      router.push("/login");
+    }
+  }, [accessToken, router]);
 
   // const fetchJobs = async (url: string) => {
   //   setLoading(true);

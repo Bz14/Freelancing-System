@@ -1,10 +1,13 @@
 "use client";
 import React from "react";
 import FreeLancerCard from "./components/freelancerCars";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import img from "../../../public/assets/Images/person1.jpg";
 import SearchBar from "../components/searchBar";
 import FilterSection from "./components/filters";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store/store";
+import { useRouter } from "next/navigation";
 
 const dummyResponse = {
   data: [
@@ -53,6 +56,15 @@ const FreelancersPage = () => {
   const [freelancers, setFreelancers] = useState(dummyResponse.data);
   const [pagination, setPagination] = useState(dummyResponse.pagination);
   const [loading, setLoading] = useState(false);
+  const { accessToken } = useSelector((state: RootState) => state.user);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!accessToken) {
+      router.push("/login");
+    }
+  }, [accessToken, router]);
+
   return (
     <div className="container mx-auto px-4 py-6 lg:w-3/4">
       <h1 className="text-2xl font-bold mb-6 text-center text-primary">

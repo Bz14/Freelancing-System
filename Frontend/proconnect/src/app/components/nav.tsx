@@ -1,15 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import logo from "../../../public/assets/logo.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/redux/store/store";
 
 const Header = () => {
+  const [isLogged, setIsLogged] = useState(false);
+  const [isFreelancer, setIsFreelancer] = useState(false);
+  const { user, accessToken } = useSelector((state: RootState) => state.user);
   const [isOpen, setIsOpen] = useState(false);
   const path = usePathname();
   const paths = ["/", "/jobs", "/freelancers", "/about", "/contact"];
+
+  useEffect(() => {
+    if (accessToken) {
+      setIsLogged(true);
+      setIsFreelancer(user.isFreelancer);
+    }
+    console.log(user, accessToken);
+  }, [accessToken, user]);
 
   return (
     <header className="bg-white shadow-md">
@@ -36,24 +49,60 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:flex space-x-4">
-          <Link
-            href="/login"
-            className="text-primary border px-4 py-2 rounded-lg hover:bg-gray-100"
-          >
-            Login
-          </Link>
-          <Link
-            href="/signup"
-            className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary"
-          >
-            Sign Up
-          </Link>
-          <Link
-            href="/dashboard/client"
-            className="bg-primary text-white px-4 py-2 rounded-full hover:bg-secondary"
-          >
-            P
-          </Link>
+          {!isLogged && (
+            <>
+              <Link
+                href="/login"
+                className="text-primary border px-4 py-2 rounded-lg hover:bg-gray-100"
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
+          {isLogged &&
+            (isFreelancer ? (
+              <Link
+                href="/dashboard/freelancer"
+                className="bg-primary text-white px-4 py-2 rounded-full hover:bg-secondary"
+              >
+                {user.profilePic ? (
+                  <Image
+                    src={user.profilePic}
+                    alt="profile"
+                    width={30}
+                    height={30}
+                  />
+                ) : user.name ? (
+                  user.name[0]
+                ) : (
+                  "P"
+                )}
+              </Link>
+            ) : (
+              <Link
+                href="/dashboard/client"
+                className="bg-primary text-white px-4 py-2 rounded-full hover:bg-secondary"
+              >
+                {user.profilePic ? (
+                  <Image
+                    src={user.profilePic}
+                    alt="profile"
+                    width={30}
+                    height={30}
+                  />
+                ) : user.name ? (
+                  user.name[0]
+                ) : (
+                  "P"
+                )}
+              </Link>
+            ))}
         </div>
 
         <button
