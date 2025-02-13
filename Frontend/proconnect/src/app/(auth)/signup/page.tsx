@@ -81,10 +81,9 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    // try redirecting with the use email to verify page
     if (success) {
       dispatch(resetInitialState());
-      router.push("/verify?email=" + form.getValues("email"));
+      router.push(`/verify`);
     }
   }, [success]);
 

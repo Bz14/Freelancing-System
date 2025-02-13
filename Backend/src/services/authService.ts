@@ -52,7 +52,13 @@ class AuthService {
       } else {
         this.authRepository.SaveClient(user.id, "");
       }
-      return "User created successfully.";
+      return {
+        user: {
+          id: user.id,
+          email: user.email,
+        },
+        message: "User created successfully.",
+      };
     } catch (error: Error | any) {
       // await this.authRepository.DeleteUser(email);
       throw new Error(error);

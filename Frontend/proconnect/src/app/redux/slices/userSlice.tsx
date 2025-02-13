@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authApi from "@/app/api/authApi";
+import { useEffect } from "react";
 
 const initialState = {
   user: {
@@ -8,7 +9,6 @@ const initialState = {
     name: null,
     profilePic: null,
     isFreelancer: false,
-    isVerified: false,
   },
   loading: false,
   error: null as null | string,
@@ -24,6 +24,7 @@ export const signup = createAsyncThunk(
         data.password,
         data.name
       );
+      console.log(response.data);
       return response;
     } catch (error: Error | any) {
       return thunkAPI.rejectWithValue(error.message);
@@ -36,7 +37,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     resetInitialState: (state) => {
-      state.user = initialState.user;
       state.loading = initialState.loading;
       state.error = initialState.error;
       state.success = initialState.success;
@@ -51,13 +51,9 @@ const userSlice = createSlice({
       })
       .addCase(signup.fulfilled, (state, action) => {
         state.loading = false;
-        state.user.id = action.payload.id;
-        state.user.name = action.payload.name;
-        state.user.email = action.payload.email;
-        state.user.isFreelancer = action.payload.isFreelancer;
-        state.user.isVerified = action.payload.isVerified;
-        state.user.profilePic = action.payload.profilePic;
         state.error = null;
+        state.user.email = action.payload.data.email;
+        state.user.id = action.payload.data.id;
         state.success = true;
       })
       .addCase(signup.rejected, (state, action) => {

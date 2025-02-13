@@ -24,6 +24,7 @@ model User {
   createdAt                DateTime     @default(now())
   updatedAt                DateTime     @updatedAt
   isVerified               Boolean      @default(false)
+  profilePic               String       @default("")
   //freelancer Freelancer? @relation(fields: [id], references: [userId])
   //client     Client?     @relation(fields: [id], references: [userId])
   Client                   Client[]
