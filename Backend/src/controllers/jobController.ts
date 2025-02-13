@@ -14,6 +14,7 @@ class JobController {
   GetAllJobs = async (req: Request, res: Response) => {
     try {
       const jobs = await this.jobService.GetAllJobs();
+      console.log(jobs);
       res.status(200).json({ message: "All jobs fetched", data: jobs });
     } catch (err: Error | any) {
       res.status(500).json({ message: err.message });

@@ -5,7 +5,12 @@ const prisma = new PrismaClient();
 
 class JobRepository {
   GetAllJobs = async () => {
-    return await prisma.job.findMany();
+    return await prisma.job.findMany({
+      where: {
+        OR: [{ status: "Open" }, { status: "Pending" }],
+        deadline: { gte: new Date() },
+      },
+    });
   };
 
   GetJobById = async (id: string) => {
