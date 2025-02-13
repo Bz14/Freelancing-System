@@ -13,8 +13,8 @@ const dummyResponse = {
     {
       id: 1,
       title: "React Native Developer Needed",
-      company: "TechCorp",
-      budget: "$2000",
+      company: "",
+      budget: "2000",
       type: "Fixed" as "Fixed" | "Hourly",
       description:
         "We are looking for an experienced React Native developer to build a mobile application for our client.",
@@ -27,7 +27,7 @@ const dummyResponse = {
       id: 2,
       title: "React Native Developer Needed",
       company: "TechCorp",
-      budget: "$2000",
+      budget: "2000",
       type: "Fixed" as "Fixed" | "Hourly",
       description:
         "We are looking for an experienced React Native developer to build a mobile application for our client.",
@@ -40,7 +40,7 @@ const dummyResponse = {
       id: 3,
       title: "React Native Developer Needed",
       company: "TechCorp",
-      budget: "$2000",
+      budget: "2000",
       type: "Fixed" as "Fixed" | "Hourly",
       description:
         "We are looking for an experienced React Native developer to build a mobile application for our client.",
@@ -53,7 +53,7 @@ const dummyResponse = {
       id: 4,
       title: "React Native Developer Needed",
       company: "TechCorp",
-      budget: "$2000",
+      budget: "2000",
       type: "Fixed" as "Fixed" | "Hourly",
       description:
         "We are looking for an experienced React Native developer to build a mobile application for our client.",
@@ -66,7 +66,7 @@ const dummyResponse = {
       id: 5,
       title: "React Native Developer Needed",
       company: "TechCorp",
-      budget: "$2000",
+      budget: "2000",
       type: "Fixed" as "Fixed" | "Hourly",
       description:
         "We are looking for an experienced React Native developer to build a mobile application for our client.",
@@ -79,7 +79,7 @@ const dummyResponse = {
       id: 6,
       title: "React Native Developer Needed",
       company: "TechCorp",
-      budget: "$2000",
+      budget: "2000",
       type: "Fixed" as "Fixed" | "Hourly",
       description:
         "We are looking for an experienced React Native developer to build a mobile application for our client.",

@@ -14,6 +14,7 @@ const JobDetails = () => {
       We are looking for a skilled React Native developer to build a cross-platform mobile app.
       We are looking for a skilled React Native developer to build a cross-platform mobile app.`,
     company: "Tech Solutions Inc.",
+    status: "Open",
     paymentType: "Fixed Price",
     paymentAmount: "$2000",
     skills: ["React Native", "JavaScript", "Redux", "Firebase"],
@@ -56,7 +57,7 @@ const JobDetails = () => {
         <h2 className="text-xl font-semibold mb-2 text-primary">
           Job Overview
         </h2>
-        <p className="text-secondary">{job.description}</p>
+        <p className="text-primary font-bold">{job.description}</p>
         <p className="text-secondary mt-2">{job.details}</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -80,6 +81,9 @@ const JobDetails = () => {
             </li>
             <li>
               <strong>Project Length:</strong> {job.projectLength}
+            </li>
+            <li>
+              <strong>Status:</strong> {job.status}
             </li>
           </ul>
         </div>

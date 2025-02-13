@@ -32,7 +32,7 @@ const JobCard: React.FC<JobProps> = ({
       {company && <p className="text-sm text-secondary">{company}</p>}
 
       <div className="flex items-center text-sm text-secondary mt-2">
-        <FaDollarSign className="mr-1 text-primary" />
+        <FaDollarSign className=" text-primary" />
         <span>
           {budget} ({type})
         </span>
