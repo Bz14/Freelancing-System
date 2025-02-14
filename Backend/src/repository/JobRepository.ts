@@ -4,12 +4,16 @@ import { IJob } from "../interfaces/jobInterfaces";
 const prisma = new PrismaClient();
 
 class JobRepository {
-  GetAllJobs = async () => {
+  GetAllJobs = async (page: number) => {
+    console.log(page);
     return await prisma.job.findMany({
       where: {
         OR: [{ status: "Open" }, { status: "Pending" }],
         deadline: { gte: new Date() },
       },
+      orderBy: [{ postedTime: "desc" }],
+      skip: page,
+      take: 1,
     });
   };
 

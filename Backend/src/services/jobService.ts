@@ -5,9 +5,17 @@ class JobService {
     this.jobRepository = jobRepository;
   }
 
-  GetAllJobs = async () => {
+  GetAllJobs = async (page: string) => {
     try {
-      return await this.jobRepository.GetAllJobs();
+      const pageInt: number = Number(page) || 0;
+      console.log(pageInt, page);
+      const jobs = await this.jobRepository.GetAllJobs(pageInt);
+      const pagination = {
+        currentPage: `/jobs?page=${pageInt}`,
+        nextPage: `/jobs?page=${pageInt + 1}`,
+        prevPage: `/jobs?page=${pageInt - 1}`,
+      };
+      return { jobs, pagination };
     } catch (err: Error | any) {
       throw new Error(err.message);
     }

@@ -1,12 +1,12 @@
 interface IJobService {
-  GetAllJobs: () => {};
+  GetAllJobs: (page: string | any) => {};
   GetJobById: (id: string) => {};
   SearchJobs: (query: any) => {};
   CreateJob: (job: IJob | any, id: string | any) => {};
 }
 
 interface IJobRepository {
-  GetAllJobs: () => {};
+  GetAllJobs: (page: number | any) => {};
   GetJobById: (id: string) => {};
   SearchJobs: (query: any) => {};
   CreateJob: (job: IJob | any, id: string | any) => {};

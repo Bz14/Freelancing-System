@@ -1,109 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import JobCard from "./components/jobCards";
 import SearchBar from "../components/searchBar";
 import FilterSection from "./components/filters";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store/store";
 import { useRouter } from "next/navigation";
-
-const dummyResponse = {
-  data: [
-    {
-      id: 1,
-      title: "React Native Developer Needed",
-      company: "",
-      budget: "2000",
-      type: "Fixed" as "Fixed" | "Hourly",
-      description:
-        "We are looking for an experienced React Native developer to build a mobile application for our client.",
-      skills: ["React Native", "JavaScript", "Redux"],
-      experience: "Intermediate",
-      postedTime: "2 hours ago",
-      deadline: "1 week",
-    },
-    {
-      id: 2,
-      title: "React Native Developer Needed",
-      company: "TechCorp",
-      budget: "2000",
-      type: "Fixed" as "Fixed" | "Hourly",
-      description:
-        "We are looking for an experienced React Native developer to build a mobile application for our client.",
-      skills: ["React Native", "JavaScript", "Redux"],
-      experience: "Intermediate",
-      postedTime: "2 hours ago",
-      deadline: "1 week",
-    },
-    {
-      id: 3,
-      title: "React Native Developer Needed",
-      company: "TechCorp",
-      budget: "2000",
-      type: "Fixed" as "Fixed" | "Hourly",
-      description:
-        "We are looking for an experienced React Native developer to build a mobile application for our client.",
-      skills: ["React Native", "JavaScript", "Redux"],
-      experience: "Intermediate",
-      postedTime: "2 hours ago",
-      deadline: "1 week",
-    },
-    {
-      id: 4,
-      title: "React Native Developer Needed",
-      company: "TechCorp",
-      budget: "2000",
-      type: "Fixed" as "Fixed" | "Hourly",
-      description:
-        "We are looking for an experienced React Native developer to build a mobile application for our client.",
-      skills: ["React Native", "JavaScript", "Redux"],
-      experience: "Intermediate",
-      postedTime: "2 hours ago",
-      deadline: "1 week",
-    },
-    {
-      id: 5,
-      title: "React Native Developer Needed",
-      company: "TechCorp",
-      budget: "2000",
-      type: "Fixed" as "Fixed" | "Hourly",
-      description:
-        "We are looking for an experienced React Native developer to build a mobile application for our client.",
-      skills: ["React Native", "JavaScript", "Redux"],
-      experience: "Intermediate",
-      postedTime: "2 hours ago",
-      deadline: "1 week",
-    },
-    {
-      id: 6,
-      title: "React Native Developer Needed",
-      company: "TechCorp",
-      budget: "2000",
-      type: "Fixed" as "Fixed" | "Hourly",
-      description:
-        "We are looking for an experienced React Native developer to build a mobile application for our client.",
-      skills: ["React Native", "JavaScript", "Redux"],
-      experience: "Intermediate",
-      postedTime: "2 hours ago",
-      deadline: "1 week",
-    },
-  ],
-  pagination: {
-    next: "/api/jobs?page=2",
-    prev: "/api/jobs?page=1",
-    first: "/api/jobs?page=1",
-    last: "/api/jobs?page=5",
-  },
-};
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../redux/store/store";
+import { fetchAllJobs } from "../redux/slices/jobSlice";
+import { resetInitialState } from "../redux/slices/jobSlice";
 
 const BrowseJobs = () => {
   const { accessToken } = useSelector((state: RootState) => state.user);
-  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error, success, data } = useSelector(
+    (state: RootState) => state.jobs
+  );
 
-  const [jobs, setJobs] = useState(dummyResponse.data);
-  const [pagination, setPagination] = useState(dummyResponse.pagination);
-  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (!accessToken) {
@@ -111,19 +25,23 @@ const BrowseJobs = () => {
     }
   }, [accessToken, router]);
 
-  // const fetchJobs = async (url: string) => {
-  //   setLoading(true);
-  //   const res = await fetch(url);
-  //   const data = await res.json();
+  useEffect(() => {
+    if (success) {
+      resetInitialState();
+    }
+  }, [success]);
 
-  //   setJobs(data.data);
-  //   setPagination(data.pagination);
-  //   setLoading(false);
-  // };
+  useEffect(() => {
+    dispatch(fetchAllJobs("/jobs?page=1"));
+  }, []);
 
-  // useEffect(() => {
-  //   fetchJobs("/api/jobs?page=1"); // Fetch the first page
-  // }, []);
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  const fetchJobs = (url: string) => {
+    dispatch(fetchAllJobs(url));
+  };
 
   return (
     <div className="container mx-auto p-6">
@@ -134,28 +52,47 @@ const BrowseJobs = () => {
         <p className="text-center text-gray-600 mt-6">Loading jobs...</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 p-6">
-          {jobs
-            // .filter((job) =>
-            //   job.title.toLowerCase().includes(searchQuery.toLowerCase())
-            // )
-            .map((job) => (
-              <JobCard key={job.id} {...job} />
-            ))}
+          {data &&
+            data.jobs &&
+            data.jobs
+              // .filter((job) =>
+              //   job.title.toLowerCase().includes(searchQuery.toLowerCase())
+              // )
+              .map((job) => (
+                <JobCard
+                  key={job.id}
+                  job={{
+                    title: job.title,
+                    company: job.company,
+                    paymentAmount: job.paymentAmount,
+                    paymentType: job.paymentType,
+                    description: job.description,
+                    skills: job.skills,
+                    experienceLevel: job.experienceLevel,
+                    postedTime: job.postedTime,
+                    deadline: job.deadline,
+                  }}
+                />
+              ))}
         </div>
       )}
-
+      {error && (
+        <p className="text-center text-red-500 mt-6">
+          An error occurred. Please try again later.
+        </p>
+      )}
       <div className="flex justify-center gap-4 mt-6">
-        {pagination.prev && (
+        {data.pagination.prevPage && (
           <button
-            // onClick={() => fetchJobs(pagination.prev)}
+            onClick={() => fetchJobs(data.pagination.prevPage)}
             className="bg-primary text-white py-2 px-4 rounded-md"
           >
             Previous
           </button>
         )}
-        {pagination.next && (
+        {data.pagination.nextPage && (
           <button
-            // onClick={() => fetchJobs(pagination.next)}
+            onClick={() => fetchJobs(data.pagination.nextPage)}
             className="bg-primary text-white py-2 px-4 rounded-md"
           >
             Next

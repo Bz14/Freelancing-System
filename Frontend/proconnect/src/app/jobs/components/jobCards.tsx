@@ -5,25 +5,31 @@ import { useRouter } from "next/navigation";
 interface JobProps {
   title: string;
   company?: string;
-  budget: string;
-  type: "Fixed" | "Hourly";
+  paymentAmount: number;
+  paymentType: string;
   description: string;
   skills: string[];
-  experience: string;
+  experienceLevel: string;
   postedTime: string;
   deadline?: string;
 }
 
-const JobCard: React.FC<JobProps> = ({
-  title,
-  company,
-  budget,
-  type,
-  description,
-  skills,
-  experience,
-  postedTime,
-  deadline,
+interface JobCardProps {
+  job: JobProps;
+}
+
+const JobCard: React.FC<JobCardProps> = ({
+  job: {
+    title,
+    company,
+    paymentAmount,
+    paymentType,
+    description,
+    skills,
+    experienceLevel,
+    postedTime,
+    deadline,
+  },
 }) => {
   const router = useRouter();
   return (
@@ -34,7 +40,7 @@ const JobCard: React.FC<JobProps> = ({
       <div className="flex items-center text-sm text-secondary mt-2">
         <FaDollarSign className=" text-primary" />
         <span>
-          {budget} ({type})
+          {paymentAmount} ({paymentType})
         </span>
       </div>
 
@@ -53,7 +59,7 @@ const JobCard: React.FC<JobProps> = ({
 
       <div className="flex justify-between text-xs text-secondary mt-3">
         <p className="flex items-center">
-          <FaBriefcase className="mr-1" /> {experience} Level
+          <FaBriefcase className="mr-1" /> {experienceLevel} Level
         </p>
         <p className="flex items-center">
           <FaClock className="mr-1" /> {postedTime}
