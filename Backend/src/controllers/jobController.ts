@@ -14,11 +14,13 @@ class JobController {
   GetAllJobs = async (req: Request, res: Response) => {
     try {
       const page = req.query.page;
-      const { jobs, pagination }: any = await this.jobService.GetAllJobs(page);
+      const { result, pagination }: any = await this.jobService.GetAllJobs(
+        page
+      );
 
       res.status(200).json({
         message: "All jobs fetched",
-        data: { jobs: jobs, pagination: pagination },
+        data: { jobs: result, pagination: pagination },
       });
     } catch (err: Error | any) {
       res.status(500).json({ message: err.message });

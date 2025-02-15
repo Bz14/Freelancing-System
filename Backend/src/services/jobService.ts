@@ -19,14 +19,31 @@ class JobService {
         throw new Error("Page not found");
       }
 
-      const jobs = await this.jobRepository.GetAllJobs(pageInt);
+      const jobs: IJob[] | any = await this.jobRepository.GetAllJobs(pageInt);
+
+      const result = jobs.map((job: IJob) => {
+        return {
+          id: job.id,
+          title: job.title,
+          description: job.description,
+          details: job.details,
+          skills: job.skills,
+          company: job.company,
+          experienceLevel: job.experienceLevel,
+          deadline: job.deadline.toDateString(),
+          paymentType: job.paymentType,
+          paymentAmount: job.paymentAmount,
+          location: job.location,
+          postedTime: job.postedTime?.toDateString(),
+        };
+      });
 
       const pagination = {
         currentPage: `/jobs?page=${pageInt}`,
         nextPage: pageInt >= pages ? null : `/jobs?page=${pageInt + 1}`,
         prevPage: pageInt <= 1 ? null : `/jobs?page=${pageInt - 1}`,
       };
-      return { jobs, pagination };
+      return { result, pagination };
     } catch (err: Error | any) {
       throw new Error(err.message);
     }

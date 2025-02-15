@@ -14,6 +14,7 @@ interface IJobRepository {
 }
 
 interface IJob {
+  id: string;
   title: string;
   description: string;
   details?: string;
