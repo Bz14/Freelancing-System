@@ -5,8 +5,13 @@ class JobService {
     this.jobRepository = jobRepository;
   }
 
-  GetAllJobs = async (page: string) => {
+  GetAllJobs = async (
+    page: string,
+    searchQuery: string,
+    filterQuery: string
+  ) => {
     try {
+      console.log(page, searchQuery, filterQuery);
       const pageInt: number = Number(page) || 1;
       const count: number | any = await this.jobRepository.GetJobsCount();
       let pages = Math.ceil(count / 6);
@@ -19,7 +24,11 @@ class JobService {
         throw new Error("Page not found");
       }
 
-      const jobs: IJob[] | any = await this.jobRepository.GetAllJobs(pageInt);
+      const jobs: IJob[] | any = await this.jobRepository.GetAllJobs(
+        pageInt,
+        searchQuery,
+        filterQuery
+      );
 
       const result = jobs.map((job: IJob) => {
         return {
@@ -52,14 +61,6 @@ class JobService {
   GetJobById = async (id: string) => {
     try {
       return await this.jobRepository.GetJobById(id);
-    } catch (err: Error | any) {
-      throw new Error(err.message);
-    }
-  };
-
-  SearchJobs = async (query: any) => {
-    try {
-      return await this.jobRepository.SearchJobs(query);
     } catch (err: Error | any) {
       throw new Error(err.message);
     }

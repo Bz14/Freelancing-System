@@ -1,20 +1,26 @@
 interface IJobService {
-  GetAllJobs: (page: string | any) => {};
+  GetAllJobs: (
+    page: string | any,
+    searchQuery: string | any,
+    filterQuery: string | any
+  ) => {};
   GetJobById: (id: string) => {};
-  SearchJobs: (query: any) => {};
   CreateJob: (job: IJob | any, id: string | any) => {};
 }
 
 interface IJobRepository {
-  GetAllJobs: (page: number | any) => {};
+  GetAllJobs: (
+    page: number | any,
+    searchQuery: string | any,
+    filterQuery: {} | any
+  ) => {};
   GetJobById: (id: string) => {};
-  SearchJobs: (query: any) => {};
   CreateJob: (job: IJob | any, id: string | any) => {};
   GetJobsCount: () => {};
 }
 
 interface IJob {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   details?: string;

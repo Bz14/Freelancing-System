@@ -4,10 +4,31 @@ import { IJob } from "../interfaces/jobInterfaces";
 const prisma = new PrismaClient();
 
 class JobRepository {
-  GetAllJobs = async (page: number) => {
+  GetAllJobs = async (
+    page: number,
+    searchQuery: string,
+    filterQuery: {
+      paymentType: string;
+      experienceLevel: string;
+      minPrice: number;
+      maxPrice: number;
+      rating: number;
+    }
+  ) => {
     return await prisma.job.findMany({
       where: {
-        OR: [{ status: "Open" }, { status: "Pending" }],
+        OR: [
+          { status: "Open" },
+          { status: "Pending" },
+          { title: { contains: searchQuery, mode: "insensitive" } },
+          { location: { contains: searchQuery, mode: "insensitive" } },
+          { description: { contains: searchQuery, mode: "insensitive" } },
+          { paymentType: filterQuery?.paymentType },
+          { experienceLevel: filterQuery?.experienceLevel },
+          { paymentAmount: { gte: filterQuery?.minPrice } },
+          { paymentAmount: { lte: filterQuery?.maxPrice } },
+          { rating: { gte: filterQuery?.rating } },
+        ],
         deadline: { gte: new Date() },
       },
       orderBy: [{ postedTime: "desc" }],
@@ -18,18 +39,6 @@ class JobRepository {
 
   GetJobById = async (id: string) => {
     return await prisma.job.findUnique({ where: { id: id } });
-  };
-
-  SearchJobs = async (query: any) => {
-    return await prisma.job.findMany({
-      where: {
-        OR: [
-          { title: { contains: query } },
-          { location: { contains: query } },
-          { description: { contains: query } },
-        ],
-      },
-    });
   };
 
   CreateJob = async (job: IJob | any, id: string | any) => {

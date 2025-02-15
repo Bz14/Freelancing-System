@@ -29,7 +29,7 @@ const refreshAccessToken = async () => {
         },
       }
     );
-
+    console.log("refresh", response);
     const newAccessToken = response.data.accessToken;
 
     store.dispatch(refreshTokenSuccess(accessToken));
@@ -51,7 +51,7 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
+    console.log("here", token);
     return config;
   },
   (error) => Promise.reject(error)
