@@ -5,15 +5,14 @@ const prisma = new PrismaClient();
 
 class JobRepository {
   GetAllJobs = async (page: number) => {
-    console.log(page);
     return await prisma.job.findMany({
       where: {
         OR: [{ status: "Open" }, { status: "Pending" }],
         deadline: { gte: new Date() },
       },
       orderBy: [{ postedTime: "desc" }],
-      skip: page,
-      take: 1,
+      skip: (page - 1) * 6,
+      take: 6,
     });
   };
 
@@ -49,6 +48,10 @@ class JobRepository {
         clientId: id,
       },
     });
+  };
+
+  GetJobsCount = async () => {
+    return await prisma.job.count();
   };
 }
 

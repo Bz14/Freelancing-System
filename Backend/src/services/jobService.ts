@@ -7,13 +7,24 @@ class JobService {
 
   GetAllJobs = async (page: string) => {
     try {
-      const pageInt: number = Number(page) || 0;
-      console.log(pageInt, page);
+      const pageInt: number = Number(page) || 1;
+      const count: number | any = await this.jobRepository.GetJobsCount();
+      let pages = Math.ceil(count / 6);
+
+      if (count < 6) {
+        pages = 1;
+      }
+
+      if (pageInt > pages) {
+        throw new Error("Page not found");
+      }
+
       const jobs = await this.jobRepository.GetAllJobs(pageInt);
+
       const pagination = {
         currentPage: `/jobs?page=${pageInt}`,
-        nextPage: `/jobs?page=${pageInt + 1}`,
-        prevPage: `/jobs?page=${pageInt - 1}`,
+        nextPage: pageInt >= pages ? null : `/jobs?page=${pageInt + 1}`,
+        prevPage: pageInt <= 1 ? null : `/jobs?page=${pageInt - 1}`,
       };
       return { jobs, pagination };
     } catch (err: Error | any) {

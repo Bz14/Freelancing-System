@@ -11,7 +11,6 @@ const AuthenticationMiddleware = (
   const [bearer, token]: any = authHeader
     ? authHeader.split(" ")
     : [null, null];
-
   if (bearer == null || token == null) {
     res.status(401).json({ message: "Bearer token is missing or invalid" });
   }

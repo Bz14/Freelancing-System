@@ -42,9 +42,12 @@ export const fetchAllJobs = createAsyncThunk(
   "jobs/fetchAllJobs",
   async (url: string, thunkAPI) => {
     try {
+      console.log(url);
       const response = await jobApi.fetchAllJobs(url);
+      console.log(response);
       return response.data;
     } catch (error: Error | any) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

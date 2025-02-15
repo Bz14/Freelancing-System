@@ -10,6 +10,7 @@ interface IJobRepository {
   GetJobById: (id: string) => {};
   SearchJobs: (query: any) => {};
   CreateJob: (job: IJob | any, id: string | any) => {};
+  GetJobsCount: () => {};
 }
 
 interface IJob {
