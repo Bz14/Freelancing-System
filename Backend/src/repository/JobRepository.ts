@@ -10,9 +10,9 @@ class JobRepository {
     filterQuery: {
       paymentType?: string;
       experienceLevel?: string;
-      minPrice?: number;
-      maxPrice?: number;
-      rating?: number;
+      minBudgetInt?: number;
+      maxBudgetInt?: number;
+      ratingInt?: number;
     }
   ) => {
     return await prisma.job.findMany({
@@ -32,19 +32,26 @@ class JobRepository {
                 ],
               }
             : {},
-          filterQuery?.paymentType
-            ? { paymentType: filterQuery.paymentType }
-            : {},
-          filterQuery?.experienceLevel
-            ? { experienceLevel: filterQuery.experienceLevel }
-            : {},
-          filterQuery?.minPrice
-            ? { paymentAmount: { gte: filterQuery.minPrice } }
-            : {},
-          filterQuery?.maxPrice
-            ? { paymentAmount: { lte: filterQuery.maxPrice } }
-            : {},
-          filterQuery?.rating ? { rating: { gte: filterQuery.rating } } : {},
+          filterQuery && {
+            AND: [
+              filterQuery?.paymentType
+                ? { paymentType: filterQuery.paymentType }
+                : {},
+              filterQuery?.experienceLevel
+                ? { experienceLevel: filterQuery.experienceLevel }
+                : {},
+              filterQuery?.minBudgetInt
+                ? { paymentAmount: { gte: filterQuery.minBudgetInt } }
+                : {},
+              filterQuery?.maxBudgetInt
+                ? { paymentAmount: { lte: filterQuery.maxBudgetInt } }
+                : {},
+              filterQuery?.ratingInt
+                ? { rating: { gte: filterQuery.ratingInt } }
+                : {},
+            ],
+          },
+
           { deadline: { gte: new Date() } },
         ],
       },
@@ -81,9 +88,9 @@ class JobRepository {
     filterQuery: {
       paymentType?: string;
       experienceLevel?: string;
-      minPrice?: number;
-      maxPrice?: number;
-      rating?: number;
+      minBudgetInt?: number;
+      maxBudgetInt?: number;
+      ratingInt?: number;
     }
   ) => {
     return await prisma.job.count({
@@ -103,22 +110,30 @@ class JobRepository {
                 ],
               }
             : {},
-          filterQuery?.paymentType
-            ? { paymentType: filterQuery.paymentType }
-            : {},
-          filterQuery?.experienceLevel
-            ? { experienceLevel: filterQuery.experienceLevel }
-            : {},
-          filterQuery?.minPrice
-            ? { paymentAmount: { gte: filterQuery.minPrice } }
-            : {},
-          filterQuery?.maxPrice
-            ? { paymentAmount: { lte: filterQuery.maxPrice } }
-            : {},
-          filterQuery?.rating ? { rating: { gte: filterQuery.rating } } : {},
+          filterQuery && {
+            AND: [
+              filterQuery?.paymentType
+                ? { paymentType: filterQuery.paymentType }
+                : {},
+              filterQuery?.experienceLevel
+                ? { experienceLevel: filterQuery.experienceLevel }
+                : {},
+              filterQuery?.minBudgetInt
+                ? { paymentAmount: { gte: filterQuery.minBudgetInt } }
+                : {},
+              filterQuery?.maxBudgetInt
+                ? { paymentAmount: { lte: filterQuery.maxBudgetInt } }
+                : {},
+              filterQuery?.ratingInt
+                ? { rating: { gte: filterQuery.ratingInt } }
+                : {},
+            ],
+          },
+
           { deadline: { gte: new Date() } },
         ],
       },
+      orderBy: [{ postedTime: "desc" }],
     });
   };
 }

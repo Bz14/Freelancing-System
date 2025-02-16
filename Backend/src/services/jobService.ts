@@ -5,17 +5,28 @@ class JobService {
     this.jobRepository = jobRepository;
   }
 
-  GetAllJobs = async (
-    page: string,
-    searchQuery: string,
-    filterQuery: string
-  ) => {
+  GetAllJobs = async (page: string, searchQuery: string, filter: {}) => {
     try {
-      console.log(page, searchQuery, filterQuery);
+      const {
+        paymentType,
+        experienceLevel,
+        minBudget,
+        maxBudget,
+        rating,
+      }: any = filter;
       const pageInt: number = Number(page) || 1;
+      const maxBudgetInt: number = Number(maxBudget) || 1000000000;
+      const minBudgetInt: number = Number(minBudget) || 0;
+      const ratingInt: number = Number(rating) || 0;
       const count: number | any = await this.jobRepository.GetJobsCount(
         searchQuery,
-        filterQuery
+        {
+          paymentType,
+          experienceLevel,
+          minBudgetInt,
+          maxBudgetInt,
+          ratingInt,
+        }
       );
       let pages = Math.ceil(count / 6);
 
@@ -30,7 +41,13 @@ class JobService {
       const jobs: IJob[] | any = await this.jobRepository.GetAllJobs(
         pageInt,
         searchQuery,
-        filterQuery
+        {
+          paymentType,
+          experienceLevel,
+          minBudgetInt,
+          maxBudgetInt,
+          rating,
+        }
       );
 
       const result = jobs.map((job: IJob) => {
@@ -57,6 +74,7 @@ class JobService {
       };
       return { result, pagination };
     } catch (err: Error | any) {
+      console.log(err);
       throw new Error(err.message);
     }
   };

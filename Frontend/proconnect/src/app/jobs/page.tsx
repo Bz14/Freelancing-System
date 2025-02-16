@@ -11,6 +11,7 @@ import { fetchAllJobs } from "../redux/slices/jobSlice";
 import { resetInitialState } from "../redux/slices/jobSlice";
 
 const BrowseJobs = () => {
+  let queryParams = "";
   const { accessToken } = useSelector((state: RootState) => state.user);
   const { searchQuery, filterQueries } = useSelector(
     (state: RootState) => state.jobs
@@ -35,12 +36,12 @@ const BrowseJobs = () => {
   }, [success]);
 
   useEffect(() => {
-    dispatch(fetchAllJobs(`/jobs?page=1&search=${searchQuery}`));
-  }, []);
+    queryParams = new URLSearchParams(filterQueries).toString();
+  }, [filterQueries]);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    dispatch(fetchAllJobs(`/jobs?page=1&search=${searchQuery}&${queryParams}`));
+  }, []);
 
   const fetchJobs = (url: string) => {
     dispatch(fetchAllJobs(url));
@@ -75,18 +76,18 @@ const BrowseJobs = () => {
             ))}
         </div>
       )}
-      {/* {error && (
+      {error && (
         <p className="text-center text-red-500 mt-6">
           An error occurred. Please try again later.
         </p>
-      )} */}
+      )}
       <div className="flex justify-center gap-4 mt-6">
         {data.pagination.prevPage && (
           <button
             onClick={() =>
               fetchJobs(
                 data.pagination.prevPage +
-                  `&search=${searchQuery}&filter=${filterQueries}`
+                  `&search=${searchQuery}&filter=${filterQueries}&${queryParams}`
               )
             }
             className="bg-primary text-white py-2 px-4 rounded-md"
@@ -99,7 +100,7 @@ const BrowseJobs = () => {
             onClick={() =>
               fetchJobs(
                 data.pagination.nextPage +
-                  `&search=${searchQuery}&filter=${filterQueries}`
+                  `&search=${searchQuery}&filter=${filterQueries}&${queryParams}`
               )
             }
             className="bg-primary text-white py-2 px-4 rounded-md"

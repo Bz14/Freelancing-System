@@ -10,6 +10,7 @@ const fetchAllJobs = async (url: string) => {
     }
     return response.data;
   } catch (error: Error | any) {
+    console.log(error.message);
     throw new Error(error.message);
   }
 };

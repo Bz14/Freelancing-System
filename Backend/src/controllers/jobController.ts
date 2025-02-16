@@ -13,14 +13,25 @@ class JobController {
 
   GetAllJobs = async (req: Request, res: Response) => {
     try {
-      const page = req.query.page;
-      const searchQuery = req.query.search;
-      const filterQuery = req.query.filter;
-
+      const {
+        page,
+        search,
+        paymentType,
+        experienceLevel,
+        minBudget,
+        maxBudget,
+        rating,
+      }: any = req.query;
       const { result, pagination }: any = await this.jobService.GetAllJobs(
         page,
-        searchQuery,
-        filterQuery
+        search,
+        {
+          paymentType,
+          experienceLevel,
+          minBudget,
+          maxBudget,
+          rating,
+        }
       );
 
       res.status(200).json({

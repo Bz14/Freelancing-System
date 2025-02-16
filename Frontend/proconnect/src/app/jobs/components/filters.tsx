@@ -10,11 +10,11 @@ const FilterSection = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { filterQueries } = useSelector((state: RootState) => state.jobs);
   const [filters, setFilters] = useState({
-    jobType: "",
+    paymentType: "",
     experienceLevel: "",
-    budgetMin: "",
-    budgetMax: "",
-    clientRating: "",
+    minBudget: "",
+    maxBudget: "",
+    rating: "",
   });
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -24,13 +24,15 @@ const FilterSection = () => {
       ...prev,
       [name]: value,
     }));
-
-    dispatch(setFilterQueries(filters));
   };
 
+  useEffect(() => {
+    dispatch(setFilterQueries(filters));
+  }, [filters]);
+
   const handleFilter = () => {
-    dispatch(fetchAllJobs(`/jobs?page=1&filter=${filterQueries}`));
-    S;
+    const queryParams = new URLSearchParams(filterQueries).toString();
+    dispatch(fetchAllJobs(`/jobs?page=1&${queryParams}`));
   };
 
   return (
@@ -40,8 +42,8 @@ const FilterSection = () => {
         <div>
           <label className="text-sm text-secondary">Job Type</label>
           <select
-            name="jobType"
-            value={filters.jobType}
+            name="paymentType"
+            value={filters.paymentType}
             onChange={handleFilterChange}
             className="w-full p-2 border border-gray-300 rounded-md outline-none text-sm"
           >
@@ -84,8 +86,8 @@ const FilterSection = () => {
             <label className="text-sm text-secondary">Min Budget</label>
             <input
               type="number"
-              name="budgetMin"
-              value={filters.budgetMin}
+              name="minBudget"
+              value={filters.minBudget}
               onChange={handleFilterChange}
               className="w-full p-2 border border-gray-300 rounded-md outline-none"
             />
@@ -94,8 +96,8 @@ const FilterSection = () => {
             <label className="text-sm text-secondary">Max Budget</label>
             <input
               type="number"
-              name="budgetMax"
-              value={filters.budgetMax}
+              name="maxBudget"
+              value={filters.maxBudget}
               onChange={handleFilterChange}
               className="w-full p-2 border border-gray-300 rounded-md outline-none"
             />
@@ -105,8 +107,8 @@ const FilterSection = () => {
           <label className="text-sm text-secondary">Rating</label>
           <input
             type="number"
-            name="clientRating"
-            value={filters.clientRating}
+            name="rating"
+            value={filters.rating}
             onChange={handleFilterChange}
             className="w-full p-2 border border-gray-300 rounded-md outline-none"
             min="0"

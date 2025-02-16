@@ -71,6 +71,7 @@ const jobs = createSlice({
       state.error = initialState.error;
       state.success = initialState.success;
       state.searchQuery = initialState.searchQuery;
+      state.filterQueries = initialState.filterQueries;
     },
 
     setSearchQuery: (state, action) => {
