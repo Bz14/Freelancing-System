@@ -8,28 +8,45 @@ class JobRepository {
     page: number,
     searchQuery: string,
     filterQuery: {
-      paymentType: string;
-      experienceLevel: string;
-      minPrice: number;
-      maxPrice: number;
-      rating: number;
+      paymentType?: string;
+      experienceLevel?: string;
+      minPrice?: number;
+      maxPrice?: number;
+      rating?: number;
     }
   ) => {
     return await prisma.job.findMany({
       where: {
-        OR: [
-          { status: "Open" },
-          { status: "Pending" },
-          { title: { contains: searchQuery, mode: "insensitive" } },
-          { location: { contains: searchQuery, mode: "insensitive" } },
-          { description: { contains: searchQuery, mode: "insensitive" } },
-          { paymentType: filterQuery?.paymentType },
-          { experienceLevel: filterQuery?.experienceLevel },
-          { paymentAmount: { gte: filterQuery?.minPrice } },
-          { paymentAmount: { lte: filterQuery?.maxPrice } },
-          { rating: { gte: filterQuery?.rating } },
+        AND: [
+          {
+            OR: [{ status: "Open" }, { status: "Pending" }],
+          },
+          searchQuery
+            ? {
+                OR: [
+                  { title: { contains: searchQuery, mode: "insensitive" } },
+                  { location: { contains: searchQuery, mode: "insensitive" } },
+                  {
+                    description: { contains: searchQuery, mode: "insensitive" },
+                  },
+                ],
+              }
+            : {},
+          filterQuery?.paymentType
+            ? { paymentType: filterQuery.paymentType }
+            : {},
+          filterQuery?.experienceLevel
+            ? { experienceLevel: filterQuery.experienceLevel }
+            : {},
+          filterQuery?.minPrice
+            ? { paymentAmount: { gte: filterQuery.minPrice } }
+            : {},
+          filterQuery?.maxPrice
+            ? { paymentAmount: { lte: filterQuery.maxPrice } }
+            : {},
+          filterQuery?.rating ? { rating: { gte: filterQuery.rating } } : {},
+          { deadline: { gte: new Date() } },
         ],
-        deadline: { gte: new Date() },
       },
       orderBy: [{ postedTime: "desc" }],
       skip: (page - 1) * 6,

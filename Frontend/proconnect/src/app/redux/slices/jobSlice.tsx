@@ -30,6 +30,7 @@ interface Pagination {
 
 const initialState = {
   loading: false,
+  searchQuery: "",
   error: null as null | string,
   data: {
     jobs: [] as Job[],
@@ -61,6 +62,11 @@ const jobs = createSlice({
       state.loading = initialState.loading;
       state.error = initialState.error;
       state.success = initialState.success;
+      state.searchQuery = initialState.searchQuery;
+    },
+
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -81,5 +87,5 @@ const jobs = createSlice({
   },
 });
 
-export const { resetInitialState } = jobs.actions;
+export const { resetInitialState, setSearchQuery } = jobs.actions;
 export default jobs.reducer;

@@ -12,6 +12,7 @@ import { resetInitialState } from "../redux/slices/jobSlice";
 
 const BrowseJobs = () => {
   const { accessToken } = useSelector((state: RootState) => state.user);
+  const { searchQuery } = useSelector((state: RootState) => state.jobs);
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, success, data } = useSelector(
     (state: RootState) => state.jobs
@@ -32,7 +33,7 @@ const BrowseJobs = () => {
   }, [success]);
 
   useEffect(() => {
-    dispatch(fetchAllJobs("/jobs?page=1"));
+    dispatch(fetchAllJobs(`/jobs?page=1&search=${searchQuery}`));
   }, []);
 
   useEffect(() => {
@@ -84,7 +85,9 @@ const BrowseJobs = () => {
       <div className="flex justify-center gap-4 mt-6">
         {data.pagination.prevPage && (
           <button
-            onClick={() => fetchJobs(data.pagination.prevPage)}
+            onClick={() =>
+              fetchJobs(data.pagination.prevPage + `&search=${searchQuery}`)
+            }
             className="bg-primary text-white py-2 px-4 rounded-md"
           >
             Previous
@@ -92,7 +95,9 @@ const BrowseJobs = () => {
         )}
         {data.pagination.nextPage && (
           <button
-            onClick={() => fetchJobs(data.pagination.nextPage)}
+            onClick={() =>
+              fetchJobs(data.pagination.nextPage + `&search=${searchQuery}`)
+            }
             className="bg-primary text-white py-2 px-4 rounded-md"
           >
             Next
