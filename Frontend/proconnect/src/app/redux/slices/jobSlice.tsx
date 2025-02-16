@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import jobApi from "@/app/api/jobApi";
+import Rating from "@/app/freelancers/[id]/components/rating";
 
 interface Job {
   id: string;
@@ -31,6 +32,13 @@ interface Pagination {
 const initialState = {
   loading: false,
   searchQuery: "",
+  filterQueries: {
+    experienceLevel: "",
+    paymentType: "",
+    minBudget: "",
+    maxBudget: "",
+    rating: "",
+  },
   error: null as null | string,
   data: {
     jobs: [] as Job[],
@@ -68,6 +76,10 @@ const jobs = createSlice({
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
+
+    setFilterQueries: (state, action) => {
+      state.filterQueries = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -87,5 +99,6 @@ const jobs = createSlice({
   },
 });
 
-export const { resetInitialState, setSearchQuery } = jobs.actions;
+export const { resetInitialState, setSearchQuery, setFilterQueries } =
+  jobs.actions;
 export default jobs.reducer;

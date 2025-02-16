@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { setSearchQuery, fetchAllJobs } from "../redux/slices/jobSlice";
+import { setSearchQuery, fetchAllJobs } from "@/app/redux/slices/jobSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/app/redux/store/store";
 
 interface SearchBarProps {
   placeholder: string;
 }
-interface HandleChangeEvent {
-  target: {
-    value: string;
-  };
-}
-
 const SearchBar = ({ placeholder }: SearchBarProps) => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch<AppDispatch>();
 
   const { searchQuery } = useSelector((state: RootState) => state.jobs);
 
-  const handleChange = (event: HandleChangeEvent) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setQuery(event.target.value);
     dispatch(setSearchQuery(event.target.value));
   };

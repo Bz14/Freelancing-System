@@ -13,7 +13,10 @@ class JobService {
     try {
       console.log(page, searchQuery, filterQuery);
       const pageInt: number = Number(page) || 1;
-      const count: number | any = await this.jobRepository.GetJobsCount();
+      const count: number | any = await this.jobRepository.GetJobsCount(
+        searchQuery,
+        filterQuery
+      );
       let pages = Math.ceil(count / 6);
 
       if (count < 6) {

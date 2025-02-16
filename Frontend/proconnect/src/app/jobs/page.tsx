@@ -12,7 +12,9 @@ import { resetInitialState } from "../redux/slices/jobSlice";
 
 const BrowseJobs = () => {
   const { accessToken } = useSelector((state: RootState) => state.user);
-  const { searchQuery } = useSelector((state: RootState) => state.jobs);
+  const { searchQuery, filterQueries } = useSelector(
+    (state: RootState) => state.jobs
+  );
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, success, data } = useSelector(
     (state: RootState) => state.jobs
@@ -55,38 +57,37 @@ const BrowseJobs = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 p-6">
           {data &&
             data.jobs &&
-            data.jobs
-              // .filter((job) =>
-              //   job.title.toLowerCase().includes(searchQuery.toLowerCase())
-              // )
-              .map((job) => (
-                <JobCard
-                  key={job.id}
-                  job={{
-                    title: job.title,
-                    company: job.company,
-                    paymentAmount: job.paymentAmount,
-                    paymentType: job.paymentType,
-                    description: job.description,
-                    skills: job.skills,
-                    experienceLevel: job.experienceLevel,
-                    postedTime: job.postedTime,
-                    deadline: job.deadline,
-                  }}
-                />
-              ))}
+            data.jobs.map((job) => (
+              <JobCard
+                key={job.id}
+                job={{
+                  title: job.title,
+                  company: job.company,
+                  paymentAmount: job.paymentAmount,
+                  paymentType: job.paymentType,
+                  description: job.description,
+                  skills: job.skills,
+                  experienceLevel: job.experienceLevel,
+                  postedTime: job.postedTime,
+                  deadline: job.deadline,
+                }}
+              />
+            ))}
         </div>
       )}
-      {error && (
+      {/* {error && (
         <p className="text-center text-red-500 mt-6">
           An error occurred. Please try again later.
         </p>
-      )}
+      )} */}
       <div className="flex justify-center gap-4 mt-6">
         {data.pagination.prevPage && (
           <button
             onClick={() =>
-              fetchJobs(data.pagination.prevPage + `&search=${searchQuery}`)
+              fetchJobs(
+                data.pagination.prevPage +
+                  `&search=${searchQuery}&filter=${filterQueries}`
+              )
             }
             className="bg-primary text-white py-2 px-4 rounded-md"
           >
@@ -96,7 +97,10 @@ const BrowseJobs = () => {
         {data.pagination.nextPage && (
           <button
             onClick={() =>
-              fetchJobs(data.pagination.nextPage + `&search=${searchQuery}`)
+              fetchJobs(
+                data.pagination.nextPage +
+                  `&search=${searchQuery}&filter=${filterQueries}`
+              )
             }
             className="bg-primary text-white py-2 px-4 rounded-md"
           >

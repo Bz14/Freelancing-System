@@ -1,8 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import { setFilterQueries, fetchAllJobs } from "@/app/redux/slices/jobSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/app/redux/store/store";
 
 const FilterSection = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { filterQueries } = useSelector((state: RootState) => state.jobs);
   const [filters, setFilters] = useState({
     jobType: "",
     experienceLevel: "",
@@ -18,6 +24,13 @@ const FilterSection = () => {
       ...prev,
       [name]: value,
     }));
+
+    dispatch(setFilterQueries(filters));
+  };
+
+  const handleFilter = () => {
+    dispatch(fetchAllJobs(`/jobs?page=1&filter=${filterQueries}`));
+    S;
   };
 
   return (
@@ -102,7 +115,10 @@ const FilterSection = () => {
         </div>
       </div>
       <div className="flex justify-end mt-4">
-        <button className="bg-primary p-2 text-white rounded-lg text-sm hover:bg-secondary">
+        <button
+          className="bg-primary p-2 text-white rounded-lg text-sm hover:bg-secondary"
+          onClick={handleFilter}
+        >
           Apply filters
         </button>
       </div>

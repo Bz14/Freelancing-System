@@ -23,10 +23,6 @@ class JobController {
         filterQuery
       );
 
-      console.log(page, searchQuery, filterQuery);
-
-      console.log(result);
-
       res.status(200).json({
         message: "All jobs fetched",
         data: { jobs: result, pagination: pagination },
