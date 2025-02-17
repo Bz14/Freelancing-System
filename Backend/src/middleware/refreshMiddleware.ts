@@ -16,9 +16,9 @@ const RefreshMiddleware = (
     res.status(401).json({ message: "Bearer token is missing or invalid" });
   }
 
-  if (bearer.toLowerCase() !== "bearer") {
-    res.status(401).json({ message: "Bearer token is missing or invalid" });
-  }
+  // if (bearer.toLowerCase() !== "bearer") {
+  //   res.status(401).json({ message: "Bearer token is missing or invalid" });
+  // }
 
   try {
     const decoded = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET);

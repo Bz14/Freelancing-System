@@ -12,6 +12,7 @@ class AuthController {
   }
   Signup = async (req: Request, res: Response) => {
     const { name, email, password, isFreelancer } = req.body;
+    console.log(req.body);
     try {
       const { user, message }: any = await this.authService.SignUp(
         name,

@@ -88,6 +88,7 @@ const Signup = () => {
   }, [success]);
 
   const onSubmit = (data: SignupForm) => {
+    console.log("On signup", data);
     dispatch(signup(data));
   };
 

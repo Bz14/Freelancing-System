@@ -18,12 +18,21 @@ const initialState = {
 
 export const signup = createAsyncThunk(
   "user/signup",
-  async (data: { email: string; password: string; name: string }, thunkAPI) => {
+  async (
+    data: {
+      email: string;
+      password: string;
+      name: string;
+      isFreelancer: boolean;
+    },
+    thunkAPI
+  ) => {
     try {
       const response = await authApi.signup(
         data.email,
         data.password,
-        data.name
+        data.name,
+        data.isFreelancer
       );
       return response;
     } catch (error: Error | any) {
