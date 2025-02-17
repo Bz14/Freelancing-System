@@ -72,6 +72,21 @@ class JobRepository {
     });
   };
 
+  GetPreviousJobs = async (clientId: string) => {
+    return await prisma.job.findMany({
+      where: {
+        clientId: clientId,
+        status: "Completed",
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+      },
+      take: 5,
+    });
+  };
+
   CreateJob = async (job: IJob | any, id: string | any) => {
     return await prisma.job.create({
       data: {

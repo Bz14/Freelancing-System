@@ -18,6 +18,7 @@ interface IJobRepository {
   CreateJob: (job: IJob | any, id: string | any) => {};
   GetJobsCount: (searchQuery: string, filterQuery: {} | any) => {};
   CountCompletedJobs: (clientId: string) => {};
+  GetPreviousJobs: (clientId: string) => {};
 }
 
 interface IJob {

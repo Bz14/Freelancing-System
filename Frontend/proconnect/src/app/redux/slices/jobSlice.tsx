@@ -67,6 +67,13 @@ const initialState = {
       company: "",
       rating: null,
       completedJobs: 0,
+      previousJobs: [
+        {
+          id: "",
+          title: "",
+          description: "",
+        },
+      ],
     },
   },
   success: false,

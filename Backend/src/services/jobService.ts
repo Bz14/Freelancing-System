@@ -85,9 +85,16 @@ class JobService {
       const completedJobs = await this.jobRepository.CountCompletedJobs(
         job.clientId
       );
+
+      const previousJobs = await this.jobRepository.GetPreviousJobs(
+        job.clientId
+      );
+
+      console.log("Prev", previousJobs, job.clientId);
       job.client.completedJobs = completedJobs;
       job.postedTime = job.postedTime.toDateString();
       job.deadline = job.deadline.toDateString();
+      job.client.previousJobs = previousJobs;
       return job;
     } catch (err: Error | any) {
       throw new Error(err.message);
