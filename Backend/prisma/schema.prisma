@@ -50,6 +50,7 @@ model Freelancer {
   skills     String[]
   experience String?
   rating     Float?
+  location   String?
   // appliedJobs Job[]   @relation("AppliedJobs", references: [id])
 }
 

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRouter from "./routes/authRoute";
 import refreshRoute from "./routes/refreshRoute";
 import jobRoute from "./routes/jobRoute";
+import freelancerRoute from "./routes/freelancerRoute";
 import cookieParser = require("cookie-parser");
 import AuthenticationMiddleware from "./middleware/authMiddleware";
 import RefreshMiddleware from "./middleware/refreshMiddleware";
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1", RefreshMiddleware, refreshRoute);
 app.use("/api/v1", AuthenticationMiddleware, jobRoute);
+app.use("/api/v1", AuthenticationMiddleware, freelancerRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World.");
