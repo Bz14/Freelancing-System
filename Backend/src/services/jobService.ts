@@ -81,7 +81,12 @@ class JobService {
 
   GetJobById = async (id: string) => {
     try {
-      return await this.jobRepository.GetJobById(id);
+      const job: any = await this.jobRepository.GetJobById(id);
+      const completedJobs = await this.jobRepository.CountCompletedJobs(
+        job.clientId
+      );
+      job.client.completedJobs = completedJobs;
+      return job;
     } catch (err: Error | any) {
       throw new Error(err.message);
     }

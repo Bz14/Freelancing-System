@@ -17,6 +17,7 @@ interface IJobRepository {
   GetJobById: (id: string) => {};
   CreateJob: (job: IJob | any, id: string | any) => {};
   GetJobsCount: (searchQuery: string, filterQuery: {} | any) => {};
+  CountCompletedJobs: (clientId: string) => {};
 }
 
 interface IJob {

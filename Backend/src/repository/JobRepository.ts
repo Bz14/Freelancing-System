@@ -62,7 +62,14 @@ class JobRepository {
   };
 
   GetJobById = async (id: string) => {
-    return await prisma.job.findUnique({ where: { id: id } });
+    return await prisma.job.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        client: { select: { id: true, company: true, rating: true } },
+      },
+    });
   };
 
   CreateJob = async (job: IJob | any, id: string | any) => {
@@ -134,6 +141,15 @@ class JobRepository {
         ],
       },
       orderBy: [{ postedTime: "desc" }],
+    });
+  };
+
+  CountCompletedJobs = async (clientId: string) => {
+    return await prisma.job.count({
+      where: {
+        id: clientId,
+        status: "Completed",
+      },
     });
   };
 }

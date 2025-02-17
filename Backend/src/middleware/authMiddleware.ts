@@ -18,7 +18,6 @@ const AuthenticationMiddleware = (
   if (bearer.toLowerCase() !== "bearer") {
     res.status(401).json({ message: "Bearer token is missing or invalid" });
   }
-
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.id = decoded.id;

@@ -24,7 +24,6 @@ const JobDetails = () => {
     proposalsSent: 25,
     rating: 4.7,
     location: "Remote",
-    projectLength: "3 months",
     clientHistory: "50+ completed projects, 4.9-star rating",
     previousWorks: [
       {
@@ -78,9 +77,6 @@ const JobDetails = () => {
             </li>
             <li>
               <strong>Location:</strong> {job.location}
-            </li>
-            <li>
-              <strong>Project Length:</strong> {job.projectLength}
             </li>
             <li>
               <strong>Status:</strong> {job.status}

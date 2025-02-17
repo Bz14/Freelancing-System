@@ -45,7 +45,8 @@ class JobController {
 
   GetJobById = async (req: Request, res: Response) => {
     try {
-      const job = await this.jobService.GetJobById(req.params.id);
+      const id = req.params.id;
+      const job = await this.jobService.GetJobById(id);
       if (!job) {
         res.status(404).json({ message: "Job not found", data: [] });
       } else {

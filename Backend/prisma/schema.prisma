@@ -40,6 +40,7 @@ model Client {
   id      String  @id @default(uuid())
   user    User    @relation(fields: [id], references: [id])
   company String?
+  rating  Float?
   job     Job[]
 }
 
