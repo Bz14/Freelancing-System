@@ -1,51 +1,23 @@
 "use client";
 import { useRouter, useParams } from "next/navigation";
+import { AppDispatch, RootState } from "@/app/redux/store/store";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchJobById } from "@/app/redux/slices/jobSlice";
+import { useEffect } from "react";
 
 const JobDetails = () => {
   const { id } = useParams();
+  // const [job, setJob] = useState(null);
+  console.log(typeof id);
   const router = useRouter();
-  const job = {
-    id: "1",
-    title: "React Native Developer Needed",
-    description:
-      "We are looking for a skilled React Native developer to build a cross-platform mobile app.",
-    details: `We are looking for a skilled React Native developer to build a cross-platform mobile app. 
-      We are looking for a skilled React Native developer to build a cross-platform mobile app.
-      We are looking for a skilled React Native developer to build a cross-platform mobile app.
-      We are looking for a skilled React Native developer to build a cross-platform mobile app.`,
-    company: "Tech Solutions Inc.",
-    status: "Open",
-    paymentType: "Fixed Price",
-    paymentAmount: "$2000",
-    skills: ["React Native", "JavaScript", "Redux", "Firebase"],
-    postedTime: "2 days ago",
-    deadline: "Feb 20, 2025",
-    experienceLevel: "Intermediate",
-    proposalsSent: 25,
-    rating: 4.7,
-    location: "Remote",
-    clientHistory: "50+ completed projects, 4.9-star rating",
-    previousWorks: [
-      {
-        id: "1",
-        title: "E-commerce App for Fashion",
-        description:
-          "Developed a React Native mobile app for an online fashion store with real-time payment integration.",
-      },
-      {
-        id: "2",
-        title: "Food Delivery Application",
-        description:
-          "Built a food delivery app using React Native and Firebase, including live tracking and in-app chat.",
-      },
-      {
-        id: "3",
-        title: "Fitness Tracking Mobile App",
-        description:
-          "Created a fitness app with step tracking, diet suggestions, and personalized workout plans.",
-      },
-    ],
-  };
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error, job } = useSelector((state: RootState) => state.jobs);
+
+  useEffect(() => {
+    if (typeof id === "string") {
+      dispatch(fetchJobById(id));
+    }
+  }, [id]);
 
   return (
     <div className="container mx-auto px-4 py-6 lg:w-3/4">
@@ -63,14 +35,16 @@ const JobDetails = () => {
         <div className="bg-primary text-white shadow-md rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4">Job Details</h2>
           <ul className="space-y-2">
-            <li>
-              <strong>Company:</strong> {job.company}
-            </li>
+            {job.client.company && (
+              <li>
+                <strong>Company:</strong> {job.client.company}
+              </li>
+            )}
             <li>
               <strong>Payment Type:</strong> {job.paymentType}
             </li>
             <li>
-              <strong>Payment Amount:</strong> {job.paymentAmount}
+              <strong>Payment Amount:</strong> ${job.paymentAmount}
             </li>
             <li>
               <strong>Experience Level:</strong> {job.experienceLevel}
@@ -95,12 +69,24 @@ const JobDetails = () => {
             <li>
               <strong>Proposals Sent:</strong> {job.proposalsSent}
             </li>
-            <li>
-              <strong>Rating:</strong> ⭐ {job.rating}
-            </li>
-            <li>
-              <strong>Client History:</strong> {job.clientHistory}
-            </li>
+
+            {job.rating && (
+              <li>
+                <strong>Rating:</strong> ⭐ {job.rating}
+              </li>
+            )}
+
+            {job.client.completedJobs > 0 && (
+              <li>
+                <strong>Completed Jobs:</strong> {job.client.completedJobs}
+              </li>
+            )}
+
+            {job.client.rating && (
+              <li>
+                <strong>Client Rating:</strong> {job.client.rating}
+              </li>
+            )}
           </ul>
         </div>
       </div>
@@ -141,7 +127,7 @@ const JobDetails = () => {
           Previous Works
         </h2>
         <div className="space-y-4">
-          {job &&
+          {/* {job &&
             job.previousWorks.map((work) => (
               <div
                 key={work.id}
@@ -155,7 +141,7 @@ const JobDetails = () => {
                   View More
                 </button>
               </div>
-            ))}
+            ))} */}
         </div>
       </div>
     </div>

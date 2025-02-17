@@ -62,6 +62,7 @@ const BrowseJobs = () => {
               <JobCard
                 key={job.id}
                 job={{
+                  id: job.id,
                   title: job.title,
                   company: job.company,
                   paymentAmount: job.paymentAmount,

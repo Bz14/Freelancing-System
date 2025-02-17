@@ -86,6 +86,8 @@ class JobService {
         job.clientId
       );
       job.client.completedJobs = completedJobs;
+      job.postedTime = job.postedTime.toDateString();
+      job.deadline = job.deadline.toDateString();
       return job;
     } catch (err: Error | any) {
       throw new Error(err.message);

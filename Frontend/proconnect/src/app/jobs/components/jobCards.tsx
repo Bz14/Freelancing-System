@@ -3,6 +3,7 @@ import { FaClock, FaDollarSign, FaBriefcase } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 interface JobProps {
+  id: string;
   title: string;
   company?: string;
   paymentAmount: number;
@@ -20,6 +21,7 @@ interface JobCardProps {
 
 const JobCard: React.FC<JobCardProps> = ({
   job: {
+    id,
     title,
     company,
     paymentAmount,
@@ -72,7 +74,7 @@ const JobCard: React.FC<JobCardProps> = ({
 
       <button
         className="mt-3 w-full bg-primary text-white py-2 rounded-md hover:bg-secondary"
-        onClick={() => router.push("/jobs/1")}
+        onClick={() => router.push(`/jobs/${id}`)}
       >
         View Details
       </button>
