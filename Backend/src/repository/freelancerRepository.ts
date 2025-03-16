@@ -111,7 +111,9 @@ class FreelancerRepository {
               }
             : {},
           filterQuery && {
-            AND: [filterQuery?.expertise ? {} : {}],
+            AND: [filterQuery?.expertise ? {
+                
+            } : {}],
             // AND: [
             //   filterQuery?.paymentType
             //     ? { paymentType: filterQuery.paymentType }

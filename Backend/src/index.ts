@@ -1,17 +1,14 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import authRouter from "./routes/authRoute";
-import refreshRoute from "./routes/refreshRoute";
-import jobRoute from "./routes/jobRoute";
-import freelancerRoute from "./routes/freelancerRoute";
-import cookieParser from "cookie-parser";
 import AuthenticationMiddleware from "./middleware/authMiddleware";
+import authRouter from "./routes/authRoute";
+import config from "./config/config";
+import cors from "cors";
+import express from "express";
+import freelancerRoute from "./routes/freelancerRoute";
+import jobRoute from "./routes/jobRoute";
+import refreshRoute from "./routes/refreshRoute";
 import RefreshMiddleware from "./middleware/refreshMiddleware";
 
-dotenv.config();
 const app = express();
-const port = process.env.PORT || 5000;
 
 app.use(
   cors({
@@ -20,16 +17,12 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(cookieParser());
+
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1", RefreshMiddleware, refreshRoute);
 app.use("/api/v1", AuthenticationMiddleware, jobRoute);
 app.use("/api/v1", AuthenticationMiddleware, freelancerRoute);
 
-app.get("/", (req, res) => {
-  res.send("Hello World.");
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(config.PORT, () => {
+  console.log(`Server is running on port ${config.PORT}`);
 });

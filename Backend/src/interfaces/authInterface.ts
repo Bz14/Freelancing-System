@@ -1,4 +1,3 @@
-import { IJob } from "./jobInterfaces";
 interface IAuthService {
   SignUp: (
     name: string,
@@ -15,7 +14,7 @@ interface IEmailService {
 }
 
 interface IAuthRepository {
-  FindUserByEmail: (email: string) => {};
+  FindUserByEmail: (email: string) => Promise<IUser | null>;
   CreateUser: (
     name: string,
     email: string,
@@ -23,7 +22,7 @@ interface IAuthRepository {
     isFreelancer: boolean,
     verificationToken: string,
     verificationTokenExpires: Date
-  ) => {};
+  ) => Promise<IUser>;
   DeleteUser: (email: string) => {};
   VerifyUser: (email: string) => {};
 
@@ -38,6 +37,7 @@ interface IAuthRepository {
 }
 
 interface IUser {
+  id: string;
   name: string;
   email: string;
   password: string;

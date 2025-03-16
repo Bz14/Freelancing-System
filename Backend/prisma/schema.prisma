@@ -46,6 +46,7 @@ model Client {
 
 model Freelancer {
   id         String   @id @default(uuid())
+  name       String
   title      String
   bio        String
   languages  String[]
